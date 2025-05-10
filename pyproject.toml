@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dwani"
-version = "0.1.3"
-description = "Multimodal AI server for Indian languages (speech, vision, LLMs, TTS, ASR, etc.)"
+version = "0.1.4"
+description = "Multimodal API for Indian languages (speech, vision, LLMs, TTS, ASR, etc.)"
 authors = [
     { name="sachin", email="python@dwani.ai" }
 ]
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">=3.10"
+requires-python = ">=3.8"
 
 dependencies = [
     "requests>=2.25.0",

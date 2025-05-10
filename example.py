@@ -6,7 +6,7 @@ dwani.api_key = os.getenv("DWANI_API_KEY")
 
 dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 
-resp = dwani.Chat.create("Hello!", "eng_Latn", "kan_Knda")
+resp = dwani.Chat.create(prompt="Hello!", src_lang="eng_Latn", tgt_lang="kan_Knda")
 print(resp)
 
 
@@ -19,6 +19,10 @@ result = dwani.Vision.caption(
 print(result)
 
 
-result = dwani.ASR.transcribe("kannada_sample.wav", "kannada")
+result = dwani.ASR.transcribe(file_path="kannada_sample.wav", language="kannada")
 print(result)
 
+
+response = dwani.Audio.speech(input="ಕರ್ನಾಟಕ ದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="mp3")
+with open("output.mp3", "wb") as f:
+    f.write(response)

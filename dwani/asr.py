@@ -4,7 +4,7 @@ def asr_transcribe(client, file_path, language):
     with open(file_path, "rb") as f:
         files = {"file": f}
         resp = requests.post(
-            f"{client.api_base}/transcribe/?language={language}",
+            f"{client.api_base}/v1/transcribe/?language={language}",
             headers=client._headers(),
             files=files
         )
@@ -18,20 +18,3 @@ class ASR:
         from . import _get_client
         return _get_client().transcribe(*args, **kwargs)
 
-
-'''
-from .docs import Documents
-
-class documents:
-    @staticmethod
-    def ocr(file_path, language=None):
-        return _get_client().document_ocr(file_path, language)
-
-    @staticmethod
-    def translate(file_path, src_lang, tgt_lang):
-        return _get_client().document_translate(file_path, src_lang, tgt_lang)
-
-    @staticmethod
-    def summarize(file_path, language=None):
-        return _get_client().document_summarize(file_path, language)
-'''

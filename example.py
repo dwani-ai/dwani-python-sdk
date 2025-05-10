@@ -18,3 +18,7 @@ result = dwani.Vision.caption(
 )
 print(result)
 
+
+result = dwani.ASR.transcribe("kannada_sample.wav", "kannada")
+print(result)
+

@@ -16,14 +16,13 @@ class DhwaniClient:
         from .chat import chat_create
         return chat_create(self, prompt, src_lang, tgt_lang, **kwargs)
 
-
     def speech(self, *args, **kwargs):
         from .audio import audio_speech
         return audio_speech(self, *args, **kwargs)
 
-    def caption(self, *args, **kwargs):
+    def caption(self, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda"):
         from .vision import vision_caption
-        return vision_caption(self, *args, **kwargs)
+        return vision_caption(self, file_path, query, src_lang, tgt_lang)
 
     def transcribe(self, *args, **kwargs):
         from .asr import asr_transcribe

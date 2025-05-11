@@ -1,16 +1,16 @@
 from .exceptions import DhwaniAPIError
 import requests
-def audio_speech(client, input, voice, model, response_format="mp3", output_file=None):
-    data = {
+
+def audio_speech(client, input, response_format="mp3", output_file=None):
+    params = {
         "input": input,
-        "voice": voice,
-        "model": model,
         "response_format": response_format
     }
     resp = requests.post(
         f"{client.api_base}/v1/audio/speech",
-        headers={**client._headers(), "Content-Type": "application/json"},
-        json=data,
+        headers={**client._headers(), "accept": "application/json"},
+        params=params,
+        data='',  # Empty body, as in the curl example
         stream=True
     )
     if resp.status_code != 200:

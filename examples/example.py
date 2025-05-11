@@ -2,6 +2,8 @@
 import dwani
 import os
 
+import dwani.translate
+
 dwani.api_key = os.getenv("DWANI_API_KEY")
 
 dwani.api_base = os.getenv("DWANI_API_BASE_URL")
@@ -26,3 +28,9 @@ print(result)
 response = dwani.Audio.speech(input="ಕರ್ನಾಟಕ ದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="mp3")
 with open("output.mp3", "wb") as f:
     f.write(response)
+
+
+'''
+translated_text = dwani.translate(sentences="hi", src_lang= "eng_Latn", tgt_lang="kan_Knda")
+print(translated_text)  # Output: ಹಾಯ್
+'''

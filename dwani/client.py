@@ -31,6 +31,7 @@ class DhwaniClient:
     def transcribe(self, *args, **kwargs):
         from .asr import asr_transcribe
         return asr_transcribe(self, *args, **kwargs)
+    
     def document_ocr(self, file_path, language=None):
         from .docs import document_ocr
         return document_ocr(self, file_path, language)

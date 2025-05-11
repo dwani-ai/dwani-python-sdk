@@ -20,10 +20,7 @@ def run_translate(client, sentences, src_lang, tgt_lang, **kwargs):
 
 class Translate:
     @staticmethod
-    def translate(sentence, src_lang, tgt_lang, **kwargs):
+    def run_translate(sentences, src_lang, tgt_lang, **kwargs):
         from . import _get_client
-        client = _get_client()
-        # Ensure sentences is always a list
-        response = run_translate(client, [sentence], src_lang, tgt_lang, **kwargs)
-        # Return the first translation, or None if not found
-        return response.get("translations", [None])[0]
+        return _get_client().translate(sentences, src_lang, tgt_lang, **kwargs)
+        

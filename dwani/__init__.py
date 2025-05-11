@@ -3,9 +3,10 @@ from .chat import Chat
 from .audio import Audio
 from .vision import Vision
 from .asr import ASR
+from .translate import Translate
 from .exceptions import DhwaniAPIError
 
-__all__ = ["DhwaniClient", "Chat", "Audio", "Vision", "ASR", "DhwaniAPIError"]
+__all__ = ["DhwaniClient", "Chat", "Audio", "Vision", "ASR", "DhwaniAPIError", "Translate"]
 
 # Optionally, instantiate a default client for convenience
 api_key = None
@@ -37,3 +38,9 @@ class asr:
     @staticmethod
     def transcribe(*args, **kwargs):
         return _get_client().transcribe(*args, **kwargs)
+
+
+class translate:
+    @staticmethod
+    def run_translate(*args, **kwargs):
+        return _get_client().translate(*args, **kwargs)

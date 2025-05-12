@@ -30,3 +30,7 @@ with open("output.mp3", "wb") as f:
 
 resp = dwani.Translate.run_translate(sentences=["hi"], src_lang="eng_Latn", tgt_lang="kan_Knda")
 print(resp)
+
+
+result = dwani.Documents.run_doc_query_kannada(file_path = "dwani-workshop.pdf", page_number=1, prompt="list key points", src_lang="eng_Latn" )
+print(result)

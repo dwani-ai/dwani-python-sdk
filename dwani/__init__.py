@@ -5,8 +5,9 @@ from .vision import Vision
 from .asr import ASR
 from .translate import Translate
 from .exceptions import DhwaniAPIError
+from .docs import Documents
 
-__all__ = ["DhwaniClient", "Chat", "Audio", "Vision", "ASR", "DhwaniAPIError", "Translate"]
+__all__ = ["DhwaniClient", "Chat", "Audio", "Vision", "ASR", "DhwaniAPIError", "Translate", "Documents"]
 
 # Optionally, instantiate a default client for convenience
 api_key = None
@@ -44,3 +45,24 @@ class translate:
     @staticmethod
     def run_translate(*args, **kwargs):
         return _get_client().translate(*args, **kwargs)
+    
+
+class document:
+    @staticmethod
+    def run_ocr(*args, **kwargs):
+        return _get_client().ocr(*args, **kwargs)
+    @staticmethod
+    def run_summarize(*args, **kwargs):
+        return _get_client().summarize(*args, **kwargs)
+    @staticmethod
+    def run_translate(*args, **kwargs):
+        return _get_client().translate(*args, **kwargs)
+    @staticmethod
+    def run_extract(*args, **kwargs):
+        return _get_client().extract(*args, **kwargs)
+    @staticmethod
+    def run_doc_query(*args, **kwargs):
+        return _get_client().doc_query(*args, **kwargs)
+    @staticmethod
+    def run_doc_query_kannada(*args, **kwargs):
+        return _get_client().doc_query_kannada(*args, **kwargs)

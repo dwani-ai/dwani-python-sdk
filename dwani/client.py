@@ -45,6 +45,11 @@ class DhwaniClient:
         return document_summarize(self, file_path=file_path, language=language, **kwargs)
 
 
+    def extract(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", **kwargs):
+        from .docs import extract
+        return extract(self, file_path=file_path, page_number=page_number, src_lang=src_lang,tgt_lang=tgt_lang, **kwargs)
+
+
     def doc_query_kannada(self, file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language=None, **kwargs):
         from .docs import doc_query_kannada
         return doc_query_kannada(self, file_path=file_path, page_number=page_number, prompt=prompt, src_lang=src_lang, language=language, **kwargs)

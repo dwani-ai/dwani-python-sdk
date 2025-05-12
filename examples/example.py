@@ -32,5 +32,9 @@ resp = dwani.Translate.run_translate(sentences=["hi"], src_lang="eng_Latn", tgt_
 print(resp)
 
 
-result = dwani.Documents.run_doc_query_kannada(file_path = "dwani-workshop.pdf", page_number=1, prompt="list key points", src_lang="eng_Latn" )
+result = dwani.Documents.run_extract(file_path = "dwani-workshop.pdf", page_number=1, src_lang="eng_Latn",tgt_lang="kan_Knda" )
 print(result)
+
+
+#result = dwani.Documents.run_doc_query_kannada(file_path = "dwani-workshop.pdf", page_number=1, prompt="list key points", src_lang="eng_Latn" )
+#print(result)

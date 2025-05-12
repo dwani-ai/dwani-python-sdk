@@ -53,23 +53,29 @@ def document_summarize(client, file_path, language=None):
         raise DhwaniAPIError(resp)
     return resp.json()
 
-def extract(client, file_path, src_lang, tgt_lang):
-    """Translate a document (image/PDF with text) from src_lang to tgt_lang."""
+
+def extract(client, file_path, page_number, src_lang, tgt_lang):
+    """
+    Extract and translate text from a document (image/PDF) using query parameters.
+    """
+    # Build the URL with query parameters
+    url = (
+        f"{client.api_base}/v1/indic-extract-text/"
+        f"?page_number={page_number}&src_lang={src_lang}&tgt_lang={tgt_lang}"
+    )
+    headers = client._headers()
+    # 'requests' handles multipart/form-data automatically
     with open(file_path, "rb") as f:
-        files = {"file": f}
-        data = {
-            "src_lang": src_lang,
-            "tgt_lang": tgt_lang
-        }
+        files = {"file": (file_path, f, "application/pdf")}
         resp = requests.post(
-            f"{client.api_base}/v1/document/translate",
-            headers=client._headers(),
-            files=files,
-            data=data
+            url,
+            headers=headers,
+            files=files
         )
     if resp.status_code != 200:
         raise DhwaniAPIError(resp)
     return resp.json()
+
 
 def doc_query(client, file_path, language=None):
     """Summarize a document (image/PDF/text)."""

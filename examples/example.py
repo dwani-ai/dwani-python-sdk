@@ -2,7 +2,6 @@
 import dwani
 import os
 
-import dwani.translate
 
 dwani.api_key = os.getenv("DWANI_API_KEY")
 
@@ -29,8 +28,23 @@ response = dwani.Audio.speech(input="ಕರ್ನಾಟಕ ದ ರಾಜಧಾ�
 with open("output.mp3", "wb") as f:
     f.write(response)
 
+resp = dwani.Translate.run_translate(sentences=["hi"], src_lang="eng_Latn", tgt_lang="kan_Knda")
+print(resp)
 
-'''
-translated_text = dwani.translate(sentences="hi", src_lang= "eng_Latn", tgt_lang="kan_Knda")
-print(translated_text)  # Output: ಹಾಯ್
-'''
+
+result = dwani.Documents.run_extract(file_path = "dwani-workshop.pdf", page_number=1, src_lang="eng_Latn",tgt_lang="kan_Knda" )
+print(result)
+
+
+result = dwani.Documents.summarize(file_path = "dwani-workshop.pdf", page_number=1, src_lang="eng_Latn",tgt_lang="kan_Knda" )
+print(result)
+
+
+
+result = dwani.Documents.run_doc_query(file_path = "dwani-workshop.pdf", prompt = "list the key points", page_number=1, src_lang="eng_Latn",tgt_lang="kan_Knda" )
+print(result)
+
+
+
+#result = dwani.Documents.run_doc_query_kannada(file_path = "dwani-workshop.pdf", page_number=1, prompt="list key points", src_lang="eng_Latn" )
+#print(result)

@@ -36,19 +36,18 @@ class DhwaniClient:
         from .docs import document_ocr
         return document_ocr(self, file_path=file_path, language=language, **kwargs)
 
-    def document_translate(self, file_path, src_lang, tgt_lang, **kwargs):
-        from .docs import document_translate
-        return document_translate(self, file_path=file_path, src_lang=src_lang, tgt_lang=tgt_lang, **kwargs)
-
-    def document_summarize(self, file_path, language=None, **kwargs):
+    def document_summarize(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", **kwargs):
         from .docs import document_summarize
-        return document_summarize(self, file_path=file_path, language=language, **kwargs)
-
+        return document_summarize(self, file_path, page_number, src_lang, tgt_lang, **kwargs)
 
     def extract(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", **kwargs):
         from .docs import extract
         return extract(self, file_path=file_path, page_number=page_number, src_lang=src_lang,tgt_lang=tgt_lang, **kwargs)
 
+
+    def doc_query( self, file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda" , **kwargs ):
+        from .docs import doc_query
+        return doc_query( self, file_path, page_number=page_number, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang , **kwargs )
 
     def doc_query_kannada(self, file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language=None, **kwargs):
         from .docs import doc_query_kannada

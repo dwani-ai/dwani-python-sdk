@@ -55,9 +55,6 @@ class document:
     def run_summarize(*args, **kwargs):
         return _get_client().summarize(*args, **kwargs)
     @staticmethod
-    def run_translate(*args, **kwargs):
-        return _get_client().translate(*args, **kwargs)
-    @staticmethod
     def run_extract(*args, **kwargs):
         return _get_client().extract(*args, **kwargs)
     @staticmethod

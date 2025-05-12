@@ -67,7 +67,14 @@ with open("output.mp3", "wb") as f:
     f.write(response)
 ```
 
-
+#### Document - Extract Text
+```python
+result = dwani.Documents.run_extract(file_path = "dwani-workshop.pdf", page_number=1, src_lang="eng_Latn",tgt_lang="kan_Knda" )
+print(result)
+```
+```json
+{'pages': [{'processed_page': 1, 'page_content': ' a plain text representation of the document', 'translated_content': 'ಡಾಕ್ಯುಮೆಂಟ್ನ ಸರಳ ಪಠ್ಯ ಪ್ರಾತಿನಿಧ್ಯವನ್ನು ಇಲ್ಲಿ ನೀಡಲಾಗಿದೆ, ಅದನ್ನು ಸ್ವಾಭಾವಿಕವಾಗಿ ಓದುವಂತೆಃ'}]}
+```
 
 - Website -> [dwani.ai](https://dwani.ai)
 

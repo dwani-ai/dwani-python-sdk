@@ -23,7 +23,7 @@ dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 
 #### Text Query 
 ```python
-resp = dwani.Chat.create(prompt="Hello!", src_lang="eng_Latn", tgt_lang="kan_Knda")
+resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada")
 print(resp)
 ```
 ```json
@@ -36,8 +36,8 @@ print(resp)
 result = dwani.Vision.caption(
     file_path="image.png",
     query="Describe this logo",
-    src_lang="eng_Latn",
-    tgt_lang="kan_Knda"
+    src_lang="english",
+    tgt_lang="kannada"
 )
 print(result)
 ```
@@ -56,7 +56,7 @@ print(result)
 
 ### Translate
 ```python
-resp = dwani.Translate.run_translate(sentences=["hi"], src_lang="eng_Latn", tgt_lang="kan_Knda")
+resp = dwani.Translate.run_translate(sentences=["hi"], src_lang="english", tgt_lang="kannada")
 print(resp)
 ```
 ```json
@@ -72,7 +72,7 @@ with open("output.mp3", "wb") as f:
 
 #### Document - Extract Text
 ```python
-result = dwani.Documents.run_extract(file_path = "dwani-workshop.pdf", page_number=1, src_lang="eng_Latn",tgt_lang="kan_Knda" )
+result = dwani.Documents.run_extract(file_path = "dwani-workshop.pdf", page_number=1, src_lang="english",tgt_lang="kannada" )
 print(result)
 ```
 ```json

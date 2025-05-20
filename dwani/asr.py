@@ -26,6 +26,9 @@ def validate_language(language):
 
 def asr_transcribe(client, file_path, language):
     # Validate the language input (case-sensitive)
+
+    language = language.lower()
+    
     validate_language(language)
     
     # Convert language to lowercase for the API request

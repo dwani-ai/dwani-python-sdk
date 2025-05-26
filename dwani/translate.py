@@ -14,7 +14,8 @@ language_options = [
     ("Odia", "ory_Orya"),
     ("Punjabi", "pan_Guru"),
     ("Tamil", "tam_Taml"),
-    ("Telugu", "tel_Telu") 
+    ("Telugu", "tel_Telu"),
+    ("German", "deu_Latn") 
 ]
 
 # Create dictionaries for language name to code and code to code mapping

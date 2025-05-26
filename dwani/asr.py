@@ -13,7 +13,9 @@ ALLOWED_LANGUAGES = [
     "Odia",
     "Punjabi",
     "Tamil",
-    "Telugu"
+    "Telugu",
+    "English",
+    "German"
 ]
 
 def validate_language(language):

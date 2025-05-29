@@ -1,4 +1,4 @@
-from .exceptions import DhwaniAPIError
+from .exceptions import DwaniAPIError
 import requests
 
 # Language options mapping
@@ -54,7 +54,7 @@ def run_translate(client, sentences, src_lang, tgt_lang, **kwargs):
         json=payload
     )
     if resp.status_code != 200:
-        raise DhwaniAPIError(resp)
+        raise DwaniAPIError(resp)
     return resp.json()
 
 class Translate:

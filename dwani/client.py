@@ -1,13 +1,13 @@
 import os
 import requests
-from .exceptions import DhwaniAPIError
+from .exceptions import DwaniAPIError
 
-class DhwaniClient:
+class DwaniClient:
     def __init__(self, api_key=None, api_base=None):
         self.api_key = api_key or os.getenv("DWANI_API_KEY")
         self.api_base = api_base or os.getenv("DWANI_API_BASE_URL", "http://localhost:8000")
         if not self.api_key:
-            raise ValueError("DHWANI_API_KEY not set")
+            raise ValueError("DWANI_API_KEY not set")
 
     def _headers(self):
         return {"X-API-Key": self.api_key}

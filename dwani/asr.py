@@ -1,4 +1,4 @@
-from .exceptions import DhwaniAPIError
+from .exceptions import DwaniAPIError
 import requests
 
 # Allowed languages (case-sensitive for display, but we'll handle case-insensitively)
@@ -45,7 +45,7 @@ def asr_transcribe(client, file_path, language):
             files=files
         )
     if resp.status_code != 200:
-        raise DhwaniAPIError(resp)
+        raise DwaniAPIError(resp)
     return resp.json()
 
 class ASR:

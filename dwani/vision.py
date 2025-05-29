@@ -1,4 +1,4 @@
-from .exceptions import DhwaniAPIError
+from .exceptions import DwaniAPIError
 import requests
 
 # Language options mapping
@@ -60,7 +60,7 @@ def vision_caption(client, file_path, query="describe the image", src_lang="eng_
             data=data
         )
     if resp.status_code != 200:
-        raise DhwaniAPIError(resp)
+        raise DwaniAPIError(resp)
     return resp.json()
 
 class Vision:

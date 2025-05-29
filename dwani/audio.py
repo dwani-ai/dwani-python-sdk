@@ -1,4 +1,4 @@
-from .exceptions import DhwaniAPIError
+from .exceptions import DwaniAPIError
 import requests
 
 def audio_speech(client, input, response_format="mp3", output_file=None):
@@ -14,7 +14,7 @@ def audio_speech(client, input, response_format="mp3", output_file=None):
         stream=True
     )
     if resp.status_code != 200:
-        raise DhwaniAPIError(resp)
+        raise DwaniAPIError(resp)
     if output_file:
         with open(output_file, "wb") as f:
             for chunk in resp.iter_content(chunk_size=8192):

@@ -1,5 +1,5 @@
 import requests
-from .exceptions import DhwaniAPIError
+from .exceptions import DwaniAPIError
 
 # Language options mapping
 language_options = [
@@ -52,7 +52,7 @@ def document_ocr(client, file_path, language=None):
             data=data
         )
     if resp.status_code != 200:
-        raise DhwaniAPIError(resp)
+        raise DwaniAPIError(resp)
     return resp.json()
 
 def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda"):
@@ -77,7 +77,7 @@ def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tg
             data=data
         )
     if resp.status_code != 200:
-        raise DhwaniAPIError(resp)
+        raise DwaniAPIError(resp)
     return resp.json()
 
 def extract(client, file_path, page_number, src_lang, tgt_lang):
@@ -102,7 +102,7 @@ def extract(client, file_path, page_number, src_lang, tgt_lang):
             files=files
         )
     if resp.status_code != 200:
-        raise DhwaniAPIError(resp)
+        raise DwaniAPIError(resp)
     return resp.json()
 
 def doc_query(
@@ -135,7 +135,7 @@ def doc_query(
             data=data
         )
     if resp.status_code != 200:
-        raise DhwaniAPIError(resp)
+        raise DwaniAPIError(resp)
     return resp.json()
 
 def doc_query_kannada(
@@ -168,7 +168,7 @@ def doc_query_kannada(
             data=data
         )
     if resp.status_code != 200:
-        raise DhwaniAPIError(resp)
+        raise DwaniAPIError(resp)
     return resp.json()
 
 class Documents:

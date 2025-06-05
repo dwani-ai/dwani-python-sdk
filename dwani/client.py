@@ -2,7 +2,7 @@ import os
 import requests
 from .exceptions import DhwaniAPIError
 
-class DhwaniClient:
+class DwaniClient:
     def __init__(self, api_key=None, api_base=None):
         self.api_key = api_key or os.getenv("DWANI_API_KEY")
         self.api_base = api_base or os.getenv("DWANI_API_BASE_URL", "http://localhost:8000")
@@ -16,9 +16,9 @@ class DhwaniClient:
         from .translate import run_translate
         return run_translate(self, sentences=sentences, src_lang=src_lang, tgt_lang=tgt_lang, **kwargs)
 
-    def chat(self, prompt, src_lang, tgt_lang, **kwargs):
+    def chat(self, prompt, src_lang, tgt_lang, model="gemma3", **kwargs):
         from .chat import chat_create
-        return chat_create(self, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, **kwargs)
+        return chat_create(self, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, model=model, **kwargs)
     
     def speech(self, input, response_format="mp3", **kwargs):
         from .audio import audio_speech
@@ -42,12 +42,11 @@ class DhwaniClient:
 
     def extract(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", **kwargs):
         from .docs import extract
-        return extract(self, file_path=file_path, page_number=page_number, src_lang=src_lang,tgt_lang=tgt_lang, **kwargs)
+        return extract(self, file_path=file_path, page_number=page_number, src_lang=src_lang, tgt_lang=tgt_lang, **kwargs)
 
-
-    def doc_query( self, file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda" , **kwargs ):
+    def doc_query(self, file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda", **kwargs):
         from .docs import doc_query
-        return doc_query( self, file_path, page_number=page_number, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang , **kwargs )
+        return doc_query(self, file_path, page_number=page_number, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, **kwargs)
 
     def doc_query_kannada(self, file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language=None, **kwargs):
         from .docs import doc_query_kannada

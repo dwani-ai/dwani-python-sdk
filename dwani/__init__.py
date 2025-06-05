@@ -1,4 +1,4 @@
-from .client import DhwaniClient
+from .client import DwaniClient
 from .chat import Chat
 from .audio import Audio
 from .vision import Vision
@@ -7,7 +7,7 @@ from .translate import Translate
 from .exceptions import DhwaniAPIError
 from .docs import Documents
 
-__all__ = ["DhwaniClient", "Chat", "Audio", "Vision", "ASR", "DhwaniAPIError", "Translate", "Documents"]
+__all__ = ["DwaniClient", "Chat", "Audio", "Vision", "ASR", "DhwaniAPIError", "Translate", "Documents"]
 
 # Optionally, instantiate a default client for convenience
 api_key = None
@@ -16,8 +16,8 @@ api_base = "http://localhost:7860"
 def _get_client():
     global _client
     if "_client" not in globals() or _client is None:
-        from .client import DhwaniClient
-        globals()["_client"] = DhwaniClient(api_key=api_key, api_base=api_base)
+        from .client import DwaniClient
+        globals()["_client"] = DwaniClient(api_key=api_key, api_base=api_base)
     return globals()["_client"]
 
 class chat:

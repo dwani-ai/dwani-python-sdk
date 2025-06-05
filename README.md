@@ -56,7 +56,7 @@ print(result)
 
 ### Translate
 ```python
-resp = dwani.Translate.run_translate(sentences=["hi"], src_lang="english", tgt_lang="kannada")
+resp = dwani.Translate.run_translate(sentences="hi, i am gaganyatri", src_lang="english", tgt_lang="kannada")
 print(resp)
 ```
 ```json

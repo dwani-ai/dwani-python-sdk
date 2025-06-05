@@ -34,8 +34,15 @@ def run_asr():
 
 def run_translate():
     try:
-        resp = dwani.Translate.run_translate(sentences=["hi"], src_lang="english", tgt_lang="kannada")
+        # List of strings input
+
+        resp = dwani.Translate.run_translate(sentences=["hi", "what is this?"], src_lang="english", tgt_lang="kannada")
         print("Translate Response:", resp)
+
+        # Single string input
+        resp = dwani.Translate.run_translate(sentences="hi, i am gaganyatri", src_lang="english", tgt_lang="kannada")
+        print("Translate Response:", resp)
+
     except Exception as e:
         print(f"Error in Translate module: {e}")
 

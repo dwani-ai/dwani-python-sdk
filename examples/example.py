@@ -69,10 +69,10 @@ def run_doc_query():
 
 def run_audio_speech():
     try:
-        response = dwani.Audio.speech(input="ಕರ್ನಾಟಕ ದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="mp3")
-        with open("output.mp3", "wb") as f:
+        response = dwani.Audio.speech(input="ಕರ್ನಾಟಕ ದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="wav")
+        with open("output.wav", "wb") as f:
             f.write(response)
-        print("Audio Speech: Output saved to output.mp3")
+        print("Audio Speech: Output saved to output.wav")
     except Exception as e:
         print(f"Error in Audio Speech module: {e}")
 

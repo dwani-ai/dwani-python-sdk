@@ -65,8 +65,8 @@ print(resp)
 #### Text to Speech -  Speech Synthesis
 
 ```python
-response = dwani.Audio.speech(input="ಕರ್ನಾಟಕ ದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="mp3")
-with open("output.mp3", "wb") as f:
+response = dwani.Audio.speech(input="ಕರ್ನಾಟಕ ದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="wav")
+with open("output.wav", "wb") as f:
     f.write(response)
 ```
 

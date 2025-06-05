@@ -11,7 +11,7 @@ __all__ = ["DwaniClient", "Chat", "Audio", "Vision", "ASR", "DhwaniAPIError", "T
 
 # Optionally, instantiate a default client for convenience
 api_key = None
-api_base = "http://localhost:8000"  # Updated to match DwaniClient default
+api_base = "http://localhost:8000"
 
 def _get_client():
     global _client
@@ -47,21 +47,21 @@ class translate:
 
 class document:
     @staticmethod
-    def run_ocr(file_path, language=None):
-        return _get_client().document_ocr(file_path, language)
+    def run_ocr(file_path, language=None, model="gemma3"):
+        return _get_client().document_ocr(file_path, language, model)
     
     @staticmethod
-    def run_summarize(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda"):
-        return _get_client().document_summarize(file_path, page_number, src_lang, tgt_lang)
+    def run_summarize(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+        return _get_client().document_summarize(file_path, page_number, src_lang, tgt_lang, model)
     
     @staticmethod
-    def run_extract(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda"):
-        return _get_client().extract(file_path, page_number, src_lang, tgt_lang)
+    def run_extract(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+        return _get_client().extract(file_path, page_number, src_lang, tgt_lang, model)
     
     @staticmethod
-    def run_doc_query(file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda"):
-        return _get_client().doc_query(file_path, page_number, prompt, src_lang, tgt_lang)
+    def run_doc_query(file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+        return _get_client().doc_query(file_path, page_number, prompt, src_lang, tgt_lang, model)
     
     @staticmethod
-    def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language=None):
-        return _get_client().doc_query_kannada(file_path, page_number, prompt, src_lang, language)
+    def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language=None, model="gemma3"):
+        return _get_client().doc_query_kannada(file_path, page_number, prompt, src_lang, language, model)

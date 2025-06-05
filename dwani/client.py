@@ -12,42 +12,42 @@ class DwaniClient:
     def _headers(self):
         return {"X-API-Key": self.api_key}
 
-    def translate(self, sentences, src_lang, tgt_lang, **kwargs):
+    def translate(self, sentences, src_lang, tgt_lang):
         from .translate import run_translate
-        return run_translate(self, sentences=sentences, src_lang=src_lang, tgt_lang=tgt_lang, **kwargs)
+        return run_translate(self, sentences=sentences, src_lang=src_lang, tgt_lang=tgt_lang)
 
     def chat(self, prompt, src_lang, tgt_lang, model="gemma3"):
         from .chat import chat_create
         return chat_create(self, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
     
-    def speech(self, input, response_format="mp3", **kwargs):
+    def speech(self, input, response_format="mp3"):
         from .audio import audio_speech
-        return audio_speech(self, input=input, response_format=response_format, **kwargs)
+        return audio_speech(self, input=input, response_format=response_format)
 
     def caption(self, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .vision import vision_caption
         return vision_caption(self, file_path=file_path, query=query, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
 
-    def transcribe(self, file_path, language=None, **kwargs):
+    def transcribe(self, file_path, language=None):
         from .asr import asr_transcribe
-        return asr_transcribe(self, file_path=file_path, language=language, **kwargs)
+        return asr_transcribe(self, file_path=file_path, language=language)
     
-    def document_ocr(self, file_path, language=None, **kwargs):
+    def document_ocr(self, file_path, language=None, model="gemma3"):
         from .docs import document_ocr
-        return document_ocr(self, file_path=file_path, language=language, **kwargs)
+        return document_ocr(self, file_path=file_path, language=language, model=model)
 
-    def document_summarize(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", **kwargs):
+    def document_summarize(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .docs import document_summarize
-        return document_summarize(self, file_path, page_number, src_lang, tgt_lang, **kwargs)
+        return document_summarize(self, file_path, page_number, src_lang, tgt_lang, model=model)
 
-    def extract(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", **kwargs):
+    def extract(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .docs import extract
-        return extract(self, file_path=file_path, page_number=page_number, src_lang=src_lang, tgt_lang=tgt_lang, **kwargs)
+        return extract(self, file_path=file_path, page_number=page_number, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
 
-    def doc_query(self, file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda", **kwargs):
+    def doc_query(self, file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .docs import doc_query
-        return doc_query(self, file_path, page_number=page_number, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, **kwargs)
+        return doc_query(self, file_path, page_number=page_number, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
 
-    def doc_query_kannada(self, file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language=None, **kwargs):
+    def doc_query_kannada(self, file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language=None, model="gemma3"):
         from .docs import doc_query_kannada
-        return doc_query_kannada(self, file_path=file_path, page_number=page_number, prompt=prompt, src_lang=src_lang, language=language, **kwargs)
+        return doc_query_kannada(self, file_path=file_path, page_number=page_number, prompt=prompt, src_lang=src_lang, language=language, model=model)

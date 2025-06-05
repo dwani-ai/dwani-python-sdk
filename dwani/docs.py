@@ -35,9 +35,14 @@ def normalize_language(lang):
     supported_langs = list(lang_name_to_code.keys()) + list(lang_code_to_code.keys())
     raise ValueError(f"Unsupported language: {lang}. Supported languages: {supported_langs}")
 
-def document_ocr(client, file_path, language=None):
+def document_ocr(client, file_path, language=None, model="gemma3"):
     """OCR a document (image/PDF) and return extracted text."""
-    data = {}
+    # Validate model
+    valid_models = ["gemma3", "moondream", "qwen2.5vl"]
+    if model not in valid_models:
+        raise ValueError(f"Unsupported model: {model}. Supported models: {valid_models}")
+    
+    data = {"model": model}
     if language:
         # Normalize the language input
         data["language"] = normalize_language(language)
@@ -54,8 +59,13 @@ def document_ocr(client, file_path, language=None):
         raise DhwaniAPIError(resp)
     return resp.json()
 
-def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda"):
+def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
     """Summarize a PDF document with language and page number options."""
+    # Validate model
+    valid_models = ["gemma3", "moondream", "qwen2.5vl"]
+    if model not in valid_models:
+        raise ValueError(f"Unsupported model: {model}. Supported models: {valid_models}")
+    
     # Normalize source and target languages
     src_lang_code = normalize_language(src_lang)
     tgt_lang_code = normalize_language(tgt_lang)
@@ -67,7 +77,8 @@ def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tg
         data = {
             "page_number": str(page_number),
             "src_lang": src_lang_code,
-            "tgt_lang": tgt_lang_code
+            "tgt渊lang": tgt_lang_code,
+            "model": model
         }
         resp = requests.post(
             url,
@@ -79,10 +90,13 @@ def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tg
         raise DhwaniAPIError(resp)
     return resp.json()
 
-def extract(client, file_path, page_number, src_lang, tgt_lang):
-    """
-    Extract and translate text from a document (image/PDF) using query parameters.
-    """
+def extract(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+    """Extract and translate text from a document (image/PDF) using query parameters."""
+    # Validate model
+    valid_models = ["gemma3", "moondream", "qwen2.5vl"]
+    if model not in valid_models:
+        raise ValueError(f"Unsupported model: {model}. Supported models: {valid_models}")
+    
     # Normalize source and target languages
     src_lang_code = normalize_language(src_lang)
     tgt_lang_code = normalize_language(tgt_lang)
@@ -90,7 +104,7 @@ def extract(client, file_path, page_number, src_lang, tgt_lang):
     # Build the URL with query parameters
     url = (
         f"{client.api_base}/v1/indic-extract-text/"
-        f"?page_number={page_number}&src_lang={src_lang_code}&tgt_lang={tgt_lang_code}"
+        f"?page_number={page_number}&src_lang={src_lang_code}&tgt_lang={tgt_lang_code}&model={model}"
     )
     headers = client._headers()
     with open(file_path, "rb") as f:
@@ -110,9 +124,15 @@ def doc_query(
     page_number=1,
     prompt="list the key points",
     src_lang="eng_Latn",
-    tgt_lang="kan_Knda"
+    tgt_lang="kan_Knda",
+    model="gemma3"
 ):
     """Query a document with a custom prompt and language options."""
+    # Validate model
+    valid_models = ["gemma3", "moondream", "qwen2.5vl"]
+    if model not in valid_models:
+        raise ValueError(f"Unsupported model: {model}. Supported models: {valid_models}")
+    
     # Normalize source and target languages
     src_lang_code = normalize_language(src_lang)
     tgt_lang_code = normalize_language(tgt_lang)
@@ -125,7 +145,8 @@ def doc_query(
             "page_number": str(page_number),
             "prompt": prompt,
             "source_language": src_lang_code,
-            "target_language": tgt_lang_code
+            "target_language": tgt_lang_code,
+            "model": model
         }
         resp = requests.post(
             url,
@@ -143,15 +164,22 @@ def doc_query_kannada(
     page_number=1, 
     prompt="list key points", 
     src_lang="eng_Latn",
-    language=None
+    language=None,
+    model="gemma3"
 ):
     """Summarize a document (image/PDF/text) with custom prompt and language."""
+    # Validate model
+    valid_models = ["gemma3", "moondream", "qwen2.5vl"]
+    if model not in valid_models:
+        raise ValueError(f"Unsupported model: {model}. Supported models: {valid_models}")
+    
     # Normalize source language and optional language parameter
     src_lang_code = normalize_language(src_lang)
     data = {
         "page_number": str(page_number),
         "prompt": prompt,
         "src_lang": src_lang_code,
+        "model": model
     }
     if language:
         data["language"] = normalize_language(language)
@@ -172,26 +200,26 @@ def doc_query_kannada(
 
 class Documents:
     @staticmethod
-    def ocr(file_path, language=None):
+    def ocr(file_path, language=None, model="gemma3"):
         from . import _get_client
-        return _get_client().document_ocr(file_path, language)
-
-    @staticmethod
-    def summarize(*args, **kwargs):
-        from . import _get_client
-        return _get_client().document_summarize(*args, **kwargs)
+        return _get_client().document_ocr(file_path, language, model)
     
     @staticmethod
-    def run_extract(*args, **kwargs):
+    def summarize(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from . import _get_client
-        return _get_client().extract(*args, **kwargs)
+        return _get_client().document_summarize(file_path, page_number, src_lang, tgt_lang, model)
     
     @staticmethod
-    def run_doc_query(*args, **kwargs):
+    def run_extract(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from . import _get_client
-        return _get_client().doc_query(*args, **kwargs)
+        return _get_client().extract(file_path, page_number, src_lang, tgt_lang, model)
     
     @staticmethod
-    def run_doc_query_kannada(*args, **kwargs):
+    def run_doc_query(file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from . import _get_client
-        return _get_client().doc_query_kannada(*args, **kwargs)
+        return _get_client().doc_query(file_path, page_number, prompt, src_lang, tgt_lang, model)
+    
+    @staticmethod
+    def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language=None, model="gemma3"):
+        from . import _get_client
+        return _get_client().doc_query_kannada(file_path, page_number, prompt, src_lang, language, model)

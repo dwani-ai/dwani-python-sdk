@@ -16,17 +16,17 @@ class DwaniClient:
         from .translate import run_translate
         return run_translate(self, sentences=sentences, src_lang=src_lang, tgt_lang=tgt_lang, **kwargs)
 
-    def chat(self, prompt, src_lang, tgt_lang, model="gemma3", **kwargs):
+    def chat(self, prompt, src_lang, tgt_lang, model="gemma3"):
         from .chat import chat_create
-        return chat_create(self, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, model=model, **kwargs)
+        return chat_create(self, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
     
     def speech(self, input, response_format="mp3", **kwargs):
         from .audio import audio_speech
         return audio_speech(self, input=input, response_format=response_format, **kwargs)
 
-    def caption(self, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", **kwargs):
+    def caption(self, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .vision import vision_caption
-        return vision_caption(self, file_path=file_path, query=query, src_lang=src_lang, tgt_lang=tgt_lang, **kwargs)
+        return vision_caption(self, file_path=file_path, query=query, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
 
     def transcribe(self, file_path, language=None, **kwargs):
         from .asr import asr_transcribe

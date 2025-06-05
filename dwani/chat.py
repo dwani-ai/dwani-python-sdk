@@ -35,7 +35,7 @@ def normalize_language(lang):
     supported_langs = list(lang_name_to_code.keys()) + list(lang_code_to_code.keys())
     raise ValueError(f"Unsupported language: {lang}. Supported languages: {supported_langs}")
 
-def chat_create(client, prompt, src_lang, tgt_lang, model="gemma3", **kwargs):
+def chat_create(client, prompt, src_lang, tgt_lang, model="gemma3"):
     # Validate model
     valid_models = ["gemma3", "qwen3", "deepseek-r1"]
     if model not in valid_models:
@@ -64,6 +64,6 @@ def chat_create(client, prompt, src_lang, tgt_lang, model="gemma3", **kwargs):
 
 class Chat:
     @staticmethod
-    def create(prompt, src_lang, tgt_lang, model="gemma3", **kwargs):
+    def create(prompt, src_lang, tgt_lang, model="gemma3"):
         from . import _get_client
-        return _get_client().chat(prompt, src_lang, tgt_lang, model, **kwargs)
+        return _get_client().chat(prompt, src_lang, tgt_lang, model)

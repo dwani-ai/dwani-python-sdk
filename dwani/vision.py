@@ -35,7 +35,12 @@ def normalize_language(lang):
     supported_langs = list(lang_name_to_code.keys()) + list(lang_code_to_code.keys())
     raise ValueError(f"Unsupported language: {lang}. Supported languages: {supported_langs}")
 
-def vision_caption(client, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda"):
+def vision_caption(client, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+    # Validate model
+    valid_models = ["gemma3", "qwen2.5vl", "moondream"]
+    if model not in valid_models:
+        raise ValueError(f"Unsupported model: {model}. Supported models: {valid_models}")
+    
     # Normalize source and target languages
     src_lang_code = normalize_language(src_lang)
     tgt_lang_code = normalize_language(tgt_lang)
@@ -43,7 +48,7 @@ def vision_caption(client, file_path, query="describe the image", src_lang="eng_
     # Build the endpoint using the client's api_base
     url = (
         f"{client.api_base}/v1/indic_visual_query"
-        f"?src_lang={src_lang_code}&tgt_lang={tgt_lang_code}"
+        f"?src_lang={src_lang_code}&tgt_lang={tgt_lang_code}&model={model}"
     )
     headers = {
         **client._headers(),
@@ -64,6 +69,6 @@ def vision_caption(client, file_path, query="describe the image", src_lang="eng_
 
 class Vision:
     @staticmethod
-    def caption(*args, **kwargs):
+    def caption(file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from . import _get_client
-        return _get_client().caption(*args, **kwargs)
+        return _get_client().caption(file_path, query, src_lang, tgt_lang, model)

@@ -52,7 +52,6 @@ def chat_create(client, prompt, src_lang, tgt_lang, model="gemma3"):
         "tgt_lang": tgt_lang_code,
         "model": model
     }
-    payload.update(kwargs)
     resp = requests.post(
         url,
         headers={**client._headers(), "Content-Type": "application/json"},

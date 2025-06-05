@@ -11,7 +11,7 @@ __all__ = ["DwaniClient", "Chat", "Audio", "Vision", "ASR", "DhwaniAPIError", "T
 
 # Optionally, instantiate a default client for convenience
 api_key = None
-api_base = "http://localhost:7860"
+api_base = "http://localhost:8000"  # Updated to match DwaniClient default
 
 def _get_client():
     global _client
@@ -22,44 +22,46 @@ def _get_client():
 
 class chat:
     @staticmethod
-    def create(prompt, **kwargs):
-        return _get_client().chat(prompt, **kwargs)
+    def create(prompt, src_lang, tgt_lang, model="gemma3"):
+        return _get_client().chat(prompt, src_lang, tgt_lang, model)
 
 class audio:
     @staticmethod
-    def speech(*args, **kwargs):
-        return _get_client().speech(*args, **kwargs)
+    def speech(input, response_format="mp3"):
+        return _get_client().speech(input, response_format)
 
 class vision:
     @staticmethod
-    def caption(*args, **kwargs):
-        return _get_client().caption(*args, **kwargs)
+    def caption(file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+        return _get_client().caption(file_path, query, src_lang, tgt_lang, model)
 
 class asr:
     @staticmethod
-    def transcribe(*args, **kwargs):
-        return _get_client().transcribe(*args, **kwargs)
-
+    def transcribe(file_path, language=None):
+        return _get_client().transcribe(file_path, language)
 
 class translate:
     @staticmethod
-    def run_translate(*args, **kwargs):
-        return _get_client().translate(*args, **kwargs)
-    
+    def run_translate(sentences, src_lang, tgt_lang):
+        return _get_client().translate(sentences, src_lang, tgt_lang)
 
 class document:
     @staticmethod
-    def run_ocr(*args, **kwargs):
-        return _get_client().ocr(*args, **kwargs)
+    def run_ocr(file_path, language=None):
+        return _get_client().document_ocr(file_path, language)
+    
     @staticmethod
-    def run_summarize(*args, **kwargs):
-        return _get_client().summarize(*args, **kwargs)
+    def run_summarize(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda"):
+        return _get_client().document_summarize(file_path, page_number, src_lang, tgt_lang)
+    
     @staticmethod
-    def run_extract(*args, **kwargs):
-        return _get_client().extract(*args, **kwargs)
+    def run_extract(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda"):
+        return _get_client().extract(file_path, page_number, src_lang, tgt_lang)
+    
     @staticmethod
-    def run_doc_query(*args, **kwargs):
-        return _get_client().doc_query(*args, **kwargs)
+    def run_doc_query(file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda"):
+        return _get_client().doc_query(file_path, page_number, prompt, src_lang, tgt_lang)
+    
     @staticmethod
-    def run_doc_query_kannada(*args, **kwargs):
-        return _get_client().doc_query_kannada(*args, **kwargs)
+    def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language=None):
+        return _get_client().doc_query_kannada(file_path, page_number, prompt, src_lang, language)

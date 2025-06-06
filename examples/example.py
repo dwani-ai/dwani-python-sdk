@@ -25,7 +25,16 @@ def run_vision():
             file_path="image.png",
             query="Describe this logo",
             src_lang="english",
-            tgt_lang="kannada"
+            tgt_lang="kannada",
+            model="gemma3"
+        )
+        print("Vision Response:", result)
+        result = dwani.Vision.caption(
+            file_path="image.png",
+            query="Describe this logo",
+            src_lang="english",
+            tgt_lang="kannada",
+            model="moondream"
         )
         print("Vision Response:", result)
     except Exception as e:

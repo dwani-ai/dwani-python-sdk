@@ -3,7 +3,7 @@
 
 ### Install the library
 ```bash
-pip install dwani
+pip install --upgrade dwani
 ```
 
 ### Languages supported
@@ -72,13 +72,13 @@ resp = dwani.Translate.run_translate(sentences="hi, i am gaganyatri", src_lang="
 print(resp)
 ```
 ```json
-{'translations': ['ಹಾಯ್']}
+{'translations': ['ಹಾಯ್, ನಾನು ಗಗನಯಾತ್ರಿ']}
 ```
 ---
 ### Text to Speech -  Speech Synthesis
 ---
 ```python
-response = dwani.Audio.speech(input="ಕರ್ನಾಟಕ ದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="wav")
+response = dwani.Audio.speech(input="ಕರ್ನಾಟಕದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="wav")
 with open("output.wav", "wb") as f:
     f.write(response)
 ```

@@ -4,10 +4,10 @@ from .audio import Audio
 from .vision import Vision
 from .asr import ASR
 from .translate import Translate
-from .exceptions import DhwaniAPIError
+from .exceptions import DwaniAPIError
 from .docs import Documents
 
-__all__ = ["DwaniClient", "Chat", "Audio", "Vision", "ASR", "DhwaniAPIError", "Translate", "Documents"]
+__all__ = ["DwaniClient", "Chat", "Audio", "Vision", "ASR", "DwaniAPIError", "Translate", "Documents"]
 
 # Optionally, instantiate a default client for convenience
 api_key = None

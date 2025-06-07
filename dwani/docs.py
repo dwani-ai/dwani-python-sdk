@@ -1,5 +1,6 @@
 import requests
-from .exceptions import DhwaniAPIError
+
+from .exceptions import DwaniAPIError
 import logging
 
 # Set up logging
@@ -11,7 +12,8 @@ language_options = [
     ("Kannada", "kan_Knda"),
     ("Hindi", "hin_Deva"),
     ("Tamil", "tam_Taml"),
-    ("Telugu", "tel_Telu")
+    ("Telugu", "tel_Telu"),
+    ("German", "deu_Latn") 
 ]
 
 # Create dictionaries for language name to code and code to code mapping
@@ -61,7 +63,7 @@ def document_ocr(client, file_path, language=None, model="gemma3"):
             resp.raise_for_status()
         except requests.RequestException as e:
             logger.error(f"OCR request failed: {str(e)}")
-            raise DhwaniAPIError(resp) if 'resp' in locals() else DhwaniAPIError.from_exception(e)
+            raise DwaniAPIError(resp) if 'resp' in locals() else DwaniAPIError.from_exception(e)
     
     logger.debug(f"OCR response: {resp.status_code}")
     return resp.json()
@@ -89,6 +91,7 @@ def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tg
             "tgt_lang": tgt_lang_code,
             "model": model
         }
+
         try:
             resp = requests.post(
                 url,
@@ -100,9 +103,10 @@ def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tg
             resp.raise_for_status()
         except requests.RequestException as e:
             logger.error(f"Summarize request failed: {str(e)}")
-            raise DhwaniAPIError(resp) if 'resp' in locals() else DhwaniAPIError.from_exception(e)
+            raise DwaniAPIError(resp) if 'resp' in locals() else DwaniAPIError.from_exception(e)
     
     logger.debug(f"Summarize response: {resp.status_code}")
+
     return resp.json()
 
 def extract(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
@@ -122,6 +126,7 @@ def extract(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan
     headers = client._headers()
     with open(file_path, "rb") as f:
         files = {"file": (file_path, f, "application/pdf")}
+
         data = {
             "page_number": str(page_number),
             "src_lang": src_lang_code,
@@ -139,9 +144,10 @@ def extract(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan
             resp.raise_for_status()
         except requests.RequestException as e:
             logger.error(f"Extract request failed: {str(e)}")
-            raise DhwaniAPIError(resp) if 'resp' in locals() else DhwaniAPIError.from_exception(e)
+            raise DwaniAPIError(resp) if 'resp' in locals() else DwaniAPIError.from_exception(e)
     
     logger.debug(f"Extract response: {resp.status_code}")
+
     return resp.json()
 
 def doc_query(
@@ -178,6 +184,7 @@ def doc_query(
             "tgt_lang": tgt_lang_code,
             "model": model
         }
+
         try:
             resp = requests.post(
                 url,
@@ -189,9 +196,10 @@ def doc_query(
             resp.raise_for_status()
         except requests.RequestException as e:
             logger.error(f"Doc query request failed: {str(e)}")
-            raise DhwaniAPIError(resp) if 'resp' in locals() else DhwaniAPIError.from_exception(e)
+            raise DwaniAPIError(resp) if 'resp' in locals() else DwaniAPIError.from_exception(e)
     
     logger.debug(f"Doc query response: {resp.status_code}")
+
     return resp.json()
 
 def doc_query_kannada(
@@ -221,6 +229,7 @@ def doc_query_kannada(
     headers = client._headers()
     with open(file_path, "rb") as f:
         files = {"file": (file_path, f, "application/pdf")}
+
         data = {
             "page_number": str(page_number),
             "prompt": prompt,
@@ -239,9 +248,10 @@ def doc_query_kannada(
             resp.raise_for_status()
         except requests.RequestException as e:
             logger.error(f"Doc query Kannada request failed: {str(e)}")
-            raise DhwaniAPIError(resp) if 'resp' in locals() else DhwaniAPIError.from_exception(e)
+            raise DwaniAPIError(resp) if 'resp' in locals() else DwaniAPIError.from_exception(e)
     
     logger.debug(f"Doc query Kannada response: {resp.status_code}")
+
     return resp.json()
 
 class Documents:

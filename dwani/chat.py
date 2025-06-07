@@ -1,4 +1,4 @@
-from .exceptions import DhwaniAPIError
+from .exceptions import DwaniAPIError
 import requests
 
 # Language options mapping
@@ -7,14 +7,15 @@ language_options = [
     ("Kannada", "kan_Knda"),
     ("Hindi", "hin_Deva"), 
     ("Assamese", "asm_Beng"),
-    ("Bengali", "ben_Beng"),
-    ("Gujarati", "guj_Gujr"),
-    ("Malayalam", "mal_Mlym"),
-    ("Marathi", "mar_Deva"),
-    ("Odia", "ory_Orya"),
-    ("Punjabi", "pan_Guru"),
-    ("Tamil", "tam_Taml"),
-    ("Telugu", "tel_Telu") 
+    ("Bengali","ben_Beng"),
+    ("Gujarati","guj_Gujr"),
+    ("Malayalam","mal_Mlym"),
+    ("Marathi","mar_Deva"),
+    ("Odia","ory_Orya"),
+    ("Punjabi","pan_Guru"),
+    ("Tamil","tam_Taml"),
+    ("Telugu","tel_Telu"),
+    ("German","deu_Latn"),
 ]
 
 # Create a dictionary for language name to code mapping
@@ -58,7 +59,7 @@ def chat_create(client, prompt, src_lang, tgt_lang, model="gemma3"):
         json=payload
     )
     if resp.status_code != 200:
-        raise DhwaniAPIError(resp)
+        raise DwaniAPIError(resp)
     return resp.json()
 
 class Chat:

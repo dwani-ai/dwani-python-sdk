@@ -112,7 +112,7 @@ def run_all_modules():
     run_audio_speech()
 
 def display_menu():
-    print("\nDhwani API Module Selector")
+    print("\ndwani.ai API Module Selector")
     print("1. Chat (default)")
     print("2. Vision")
     print("3. ASR")

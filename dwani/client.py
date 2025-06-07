@@ -1,6 +1,6 @@
 import os
 import requests
-from .exceptions import DhwaniAPIError
+from .exceptions import DwaniAPIError
 
 class DwaniClient:
     def __init__(self, api_key=None, api_base=None):

@@ -5,12 +5,15 @@ from .exceptions import DhwaniAPIError
 class DwaniClient:
     def __init__(self, api_key=None, api_base=None):
         self.api_key = api_key or os.getenv("DWANI_API_KEY")
-        self.api_base = api_base or os.getenv("DWANI_API_BASE_URL", "http://localhost:8000")
+        self.api_base = api_base or os.getenv("DWANI_API_BASE_URL", "http://0.0.0.0:8000")
         if not self.api_key:
-            raise ValueError("DHWANI_API_KEY not set")
+            raise ValueError("DWANI_API_KEY not set")
 
     def _headers(self):
-        return {"X-API-Key": self.api_key}
+        return {
+            "X-API-Key": self.api_key,
+            "Accept": "application/json"
+        }
 
     def translate(self, sentences, src_lang, tgt_lang):
         from .translate import run_translate
@@ -38,7 +41,7 @@ class DwaniClient:
 
     def document_summarize(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .docs import document_summarize
-        return document_summarize(self, file_path, page_number, src_lang, tgt_lang, model=model)
+        return document_summarize(self, file_path, page_number, src_lang, tgt_lang, model)
 
     def extract(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .docs import extract
@@ -48,6 +51,6 @@ class DwaniClient:
         from .docs import doc_query
         return doc_query(self, file_path, page_number=page_number, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
 
-    def doc_query_kannada(self, file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language=None, model="gemma3"):
+    def doc_query_kannada(self, file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language="kan_Knda", model="gemma3"):
         from .docs import doc_query_kannada
         return doc_query_kannada(self, file_path=file_path, page_number=page_number, prompt=prompt, src_lang=src_lang, language=language, model=model)

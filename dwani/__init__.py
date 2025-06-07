@@ -11,14 +11,14 @@ __all__ = ["DwaniClient", "Chat", "Audio", "Vision", "ASR", "DhwaniAPIError", "T
 
 # Optionally, instantiate a default client for convenience
 api_key = None
-api_base = "http://localhost:8000"
+api_base = "http://0.0.0.0:8000"
 
 def _get_client():
     global _client
     if "_client" not in globals() or _client is None:
         from .client import DwaniClient
         globals()["_client"] = DwaniClient(api_key=api_key, api_base=api_base)
-    return globals()["_client"]
+    return _client
 
 class chat:
     @staticmethod
@@ -27,7 +27,7 @@ class chat:
 
 class audio:
     @staticmethod
-    def speech(input, response_format="mp3"):
+    def speech(input, response_format="wav"):
         return _get_client().speech(input, response_format)
 
 class vision:
@@ -37,17 +37,17 @@ class vision:
 
 class asr:
     @staticmethod
-    def transcribe(file_path, language=None):
+    def transcribe(file_path, language="kannada"):
         return _get_client().transcribe(file_path, language)
 
 class translate:
     @staticmethod
-    def run_translate(sentences, src_lang, tgt_lang):
+    def run_translate(sentences, src_lang="kan_Knda", tgt_lang="eng_Latn"):
         return _get_client().translate(sentences, src_lang, tgt_lang)
 
 class document:
     @staticmethod
-    def run_ocr(file_path, language=None, model="gemma3"):
+    def run_ocr(file_path, language="eng_Latn", model="gemma3"):
         return _get_client().document_ocr(file_path, language, model)
     
     @staticmethod
@@ -63,5 +63,5 @@ class document:
         return _get_client().doc_query(file_path, page_number, prompt, src_lang, tgt_lang, model)
     
     @staticmethod
-    def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language=None, model="gemma3"):
-        return _get_client().doc_query_kannada(file_path, page_number, prompt, src_lang, language, model)
+    def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+        return _get_client().doc_query_kannada(file_path, page_number, prompt, src_lang, tgt_lang, model)

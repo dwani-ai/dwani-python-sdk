@@ -64,7 +64,11 @@ def run_translate():
 def run_doc_extract():
     try:
         result = dwani.Documents.run_extract(
-            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada"
+            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="gemma3"
+        )
+        print("Document Extract Response:", result)
+        result = dwani.Documents.run_extract(
+            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
         )
         print("Document Extract Response:", result)
     except Exception as e:
@@ -73,7 +77,11 @@ def run_doc_extract():
 def run_doc_summarize():
     try:
         result = dwani.Documents.summarize(
-            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada"
+            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="gemma3"
+        )
+        print("Document Summarize Response:", result)
+        result = dwani.Documents.summarize(
+            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
         )
         print("Document Summarize Response:", result)
     except Exception as e:
@@ -83,7 +91,12 @@ def run_doc_query():
     try:
         result = dwani.Documents.run_doc_query(
             file_path="dwani-workshop.pdf", prompt="list the key points",
-            page_number=1, src_lang="english", tgt_lang="kannada"
+            page_number=1, src_lang="english", tgt_lang="kannada", model="gemma3"
+        )
+        print("Document Query Response:", result)
+        result = dwani.Documents.run_doc_query(
+            file_path="dwani-workshop.pdf", prompt="list the key points",
+            page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
         )
         print("Document Query Response:", result)
     except Exception as e:

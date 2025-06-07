@@ -66,8 +66,17 @@ def run_doc_extract():
         result = dwani.Documents.run_extract(
             file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada"
         )
-        print("Document Extract Response: ", result)
-
+        print("Document Extract Response: default/gemma3- ", result)
+        '''
+        result = dwani.Documents.run_extract(
+            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="gemma3"
+        )
+        print("Document Extract Response: gemma3- ", result)
+        result = dwani.Documents.run_extract(
+            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
+        )
+        print("Document Extract Response: moondream- ", result)
+        '''
     except Exception as e:
         print(f"Error in Document Extract module: {e}")
 
@@ -77,7 +86,16 @@ def run_doc_summarize():
             file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada"
         )
         print("Document Summarize Response: default/gemma3- ", result)
-
+        '''
+        result = dwani.Documents.summarize(
+            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="gemma3"
+        )
+        print("Document Summarize Response: gemma3- ", result)
+        result = dwani.Documents.summarize(
+            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
+        )
+        print("Document Summarize Response: moondream- ", result)
+        '''
     except Exception as e:
         print(f"Error in Document Summarize module: {e}")
 
@@ -88,6 +106,13 @@ def run_doc_query():
             page_number=1, src_lang="english", tgt_lang="kannada", model="gemma3"
         )
         print("Document Query Response: gemma3- ", result)
+        '''
+        result = dwani.Documents.run_doc_query(
+            file_path="dwani-workshop.pdf", prompt="list the key points",
+            page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
+        )
+        print("Document Query Response: moondream3- ", result)
+        '''
     except Exception as e:
         print(f"Error in Document Query module: {e}")
 
@@ -112,7 +137,7 @@ def run_all_modules():
     run_audio_speech()
 
 def display_menu():
-    print("\ndwani.ai API Module Selector")
+    print("\nDhwani API Module Selector")
     print("1. Chat (default)")
     print("2. Vision")
     print("3. ASR")

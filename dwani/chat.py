@@ -36,7 +36,12 @@ def normalize_language(lang):
     supported_langs = list(lang_name_to_code.keys()) + list(lang_code_to_code.keys())
     raise ValueError(f"Unsupported language: {lang}. Supported languages: {supported_langs}")
 
-def chat_create(client, prompt, src_lang, tgt_lang, **kwargs):
+def chat_create(client, prompt, src_lang, tgt_lang, model="gemma3"):
+    # Validate model
+    valid_models = ["gemma3", "qwen3", "deepseek-r1"]
+    if model not in valid_models:
+        raise ValueError(f"Unsupported model: {model}. Supported models: {valid_models}")
+    
     # Normalize source and target languages
     src_lang_code = normalize_language(src_lang)
     tgt_lang_code = normalize_language(tgt_lang)
@@ -45,9 +50,9 @@ def chat_create(client, prompt, src_lang, tgt_lang, **kwargs):
     payload = {
         "prompt": prompt,
         "src_lang": src_lang_code,
-        "tgt_lang": tgt_lang_code
+        "tgt_lang": tgt_lang_code,
+        "model": model
     }
-    payload.update(kwargs)
     resp = requests.post(
         url,
         headers={**client._headers(), "Content-Type": "application/json"},
@@ -59,6 +64,6 @@ def chat_create(client, prompt, src_lang, tgt_lang, **kwargs):
 
 class Chat:
     @staticmethod
-    def create(prompt, src_lang, tgt_lang, **kwargs):
+    def create(prompt, src_lang, tgt_lang, model="gemma3"):
         from . import _get_client
-        return _get_client().chat(prompt, src_lang, tgt_lang, **kwargs)
+        return _get_client().chat(prompt, src_lang, tgt_lang, model)

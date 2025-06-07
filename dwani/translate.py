@@ -36,7 +36,17 @@ def normalize_language(lang):
     supported_langs = list(lang_name_to_code.keys()) + list(lang_code_to_code.keys())
     raise ValueError(f"Unsupported language: {lang}. Supported languages: {supported_langs}")
 
-def run_translate(client, sentences, src_lang, tgt_lang, **kwargs):
+def run_translate(client, sentences, src_lang, tgt_lang):
+    # Convert single string to list if necessary
+    if isinstance(sentences, str):
+        sentences = [sentences]
+    elif not isinstance(sentences, list):
+        raise ValueError("sentences must be a string or a list of strings")
+    
+    # Validate that all elements in the list are strings
+    if not all(isinstance(s, str) for s in sentences):
+        raise ValueError("All sentences must be strings")
+    
     # Normalize source and target languages
     src_lang_code = normalize_language(src_lang)
     tgt_lang_code = normalize_language(tgt_lang)
@@ -47,7 +57,6 @@ def run_translate(client, sentences, src_lang, tgt_lang, **kwargs):
         "src_lang": src_lang_code,
         "tgt_lang": tgt_lang_code
     }
-    payload.update(kwargs)
     resp = requests.post(
         url,
         headers={**client._headers(), "Content-Type": "application/json", "accept": "application/json"},
@@ -59,6 +68,6 @@ def run_translate(client, sentences, src_lang, tgt_lang, **kwargs):
 
 class Translate:
     @staticmethod
-    def run_translate(sentences, src_lang, tgt_lang, **kwargs):
+    def run_translate(sentences, src_lang, tgt_lang):
         from . import _get_client
-        return _get_client().translate(sentences, src_lang, tgt_lang, **kwargs)
+        return _get_client().translate(sentences, src_lang, tgt_lang)

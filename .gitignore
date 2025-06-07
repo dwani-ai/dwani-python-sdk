@@ -9,6 +9,7 @@ asr_venv
 # C extensions
 *.so
 output.mp3
+output.wav
 # Distribution / packaging
 .Python
 build/

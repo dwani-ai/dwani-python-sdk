@@ -19,33 +19,44 @@ dwani.api_key = os.getenv("DWANI_API_KEY")
 dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 ```
 
-### Examples
 
-#### Text Query 
+### Text Query 
+---
+- With model selection
+  - Supported models : gemma3 (default), qwen3, deepseek-r1-8b, sarvam-m
+
+---
+- gemma3
 ```python
-resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada")
+resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada", model="gemma3")
 print(resp)
 ```
 ```json
 {'response': 'ನಮಸ್ತೆ! ಭಾರತ ಮತ್ತು ಕರ್ನಾಟಕವನ್ನು ಗಮನದಲ್ಲಿಟ್ಟುಕೊಂಡು ಇಂದು ನಿಮ್ಮ ಪ್ರಶ್ನೆಗಳಿಗೆ ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?'}
 ```
+---
+### Vision Query
+---
+- With model selection
+  - Supported models : gemma3 (default), moondream
+- gemma3
 
-
-#### Vision Query
 ```python
 result = dwani.Vision.caption(
     file_path="image.png",
     query="Describe this logo",
     src_lang="english",
-    tgt_lang="kannada"
+    tgt_lang="kannada",
+    model="gemma3"
 )
 print(result)
 ```
 ```json
 {'answer': 'ಒಂದು ವಾಕ್ಯದಲ್ಲಿ ಚಿತ್ರದ ಸಾರಾಂಶವನ್ನು ಇಲ್ಲಿ ನೀಡಲಾಗಿದೆಃ ಪ್ರಕಟಣೆಯ ಅವಲೋಕನವು ಪ್ರಸ್ತುತ ಅರವತ್ತನಾಲ್ಕು ದೇಶಗಳು/ಪ್ರದೇಶಗಳನ್ನು ಸೇರಿಸಲಾಗಿದೆ ಮತ್ತು ಇನ್ನೂ ಹದಿನಾರು ಪ್ರದೇಶಗಳನ್ನು ಸೇರಿಸಬೇಕಾಗಿದೆ. ಒದಗಿಸಲಾದ ಚಿತ್ರದಲ್ಲಿ ಲಾಂಛನವು ಕಾಣಿಸುವುದಿಲ್ಲ.'}
 ```
-
-#### Speech to Text -  Automatic Speech Recognition (ASR)
+---
+### Speech to Text -  Automatic Speech Recognition (ASR)
+---
 ```python
 result = dwani.ASR.transcribe(file_path="kannada_sample.wav", language="kannada")
 print(result)
@@ -53,20 +64,22 @@ print(result)
 ```json
 {'text': 'ಕರ್ನಾಟಕ ದ ರಾಜಧಾನಿ ಯಾವುದು'}
 ```
-
+---
 ### Translate
+---
 ```python
-resp = dwani.Translate.run_translate(sentences=["hi"], src_lang="english", tgt_lang="kannada")
+resp = dwani.Translate.run_translate(sentences="hi, i am gaganyatri", src_lang="english", tgt_lang="kannada")
 print(resp)
 ```
 ```json
 {'translations': ['ಹಾಯ್']}
 ```
-#### Text to Speech -  Speech Synthesis
-
+---
+### Text to Speech -  Speech Synthesis
+---
 ```python
-response = dwani.Audio.speech(input="ಕರ್ನಾಟಕ ದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="mp3")
-with open("output.mp3", "wb") as f:
+response = dwani.Audio.speech(input="ಕರ್ನಾಟಕ ದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="wav")
+with open("output.wav", "wb") as f:
     f.write(response)
 ```
 

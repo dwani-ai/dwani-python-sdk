@@ -16,6 +16,9 @@ def run_chat():
 
         resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada", model="gemma3")
         print("Chat Response: gemma3- ", resp)
+
+        resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada", model="sarvam-m")
+        print("Chat Response: sarvam-m- ", resp)
     except Exception as e:
         print(f"Error in Chat module: {e}")
 

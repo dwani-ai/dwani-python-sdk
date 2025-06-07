@@ -38,7 +38,7 @@ def normalize_language(lang):
 
 def vision_caption(client, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
     # Validate model
-    valid_models = ["gemma3", "qwen2.5vl", "moondream"]
+    valid_models = ["gemma3", "qwen2.5vl", "moondream", "smolvla"]
     if model not in valid_models:
         raise ValueError(f"Unsupported model: {model}. Supported models: {valid_models}")
     

@@ -38,7 +38,7 @@ def normalize_language(lang):
 
 def chat_create(client, prompt, src_lang, tgt_lang, model="gemma3"):
     # Validate model
-    valid_models = ["gemma3", "qwen3", "deepseek-r1"]
+    valid_models = ["gemma3", "qwen3", "deepseek-r1", "sarvam-m"]
     if model not in valid_models:
         raise ValueError(f"Unsupported model: {model}. Supported models: {valid_models}")
     

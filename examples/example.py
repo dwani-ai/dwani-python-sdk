@@ -9,13 +9,13 @@ dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 def run_chat():
     try:
         resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada")
-        print("Chat Response:", resp)
+        print("Chat Response: default/gemma3- ", resp)
 
         resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada", model="qwen3")
-        print("Chat Response:", resp)
+        print("Chat Response: qwen3- ", resp)
 
         resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada", model="gemma3")
-        print("Chat Response:", resp)
+        print("Chat Response: gemma3- ", resp)
     except Exception as e:
         print(f"Error in Chat module: {e}")
 
@@ -28,7 +28,7 @@ def run_vision():
             tgt_lang="kannada",
             model="gemma3"
         )
-        print("Vision Response:", result)
+        print("Vision Response: gemma3- ", result)
         result = dwani.Vision.caption(
             file_path="image.png",
             query="Describe this logo",
@@ -36,7 +36,7 @@ def run_vision():
             tgt_lang="kannada",
             model="moondream"
         )
-        print("Vision Response:", result)
+        print("Vision Response: moondream- ", result)
     except Exception as e:
         print(f"Error in Vision module: {e}")
 
@@ -64,26 +64,34 @@ def run_translate():
 def run_doc_extract():
     try:
         result = dwani.Documents.run_extract(
+            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada"
+        )
+        print("Document Extract Response: default/gemma3- ", result)
+        result = dwani.Documents.run_extract(
             file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="gemma3"
         )
-        print("Document Extract Response:", result)
+        print("Document Extract Response: gemma3- ", result)
         result = dwani.Documents.run_extract(
             file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
         )
-        print("Document Extract Response:", result)
+        print("Document Extract Response: moondream- ", result)
     except Exception as e:
         print(f"Error in Document Extract module: {e}")
 
 def run_doc_summarize():
     try:
         result = dwani.Documents.summarize(
+            file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada"
+        )
+        print("Document Summarize Response: default/gemma3- ", result)
+        result = dwani.Documents.summarize(
             file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="gemma3"
         )
-        print("Document Summarize Response:", result)
+        print("Document Summarize Response: gemma3- ", result)
         result = dwani.Documents.summarize(
             file_path="dwani-workshop.pdf", page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
         )
-        print("Document Summarize Response:", result)
+        print("Document Summarize Response: moondream- ", result)
     except Exception as e:
         print(f"Error in Document Summarize module: {e}")
 
@@ -93,12 +101,12 @@ def run_doc_query():
             file_path="dwani-workshop.pdf", prompt="list the key points",
             page_number=1, src_lang="english", tgt_lang="kannada", model="gemma3"
         )
-        print("Document Query Response:", result)
+        print("Document Query Response: gemma3- ", result)
         result = dwani.Documents.run_doc_query(
             file_path="dwani-workshop.pdf", prompt="list the key points",
             page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
         )
-        print("Document Query Response:", result)
+        print("Document Query Response: moondream3- ", result)
     except Exception as e:
         print(f"Error in Document Query module: {e}")
 

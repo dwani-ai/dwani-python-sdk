@@ -68,19 +68,20 @@ def run_vision():
             model="gemma3"
         )
         print("Vision Response: gemma3/direct- ", result)
-        result = dwani.Vision.direct(
+        result = dwani.Vision.caption_direct(
             file_path="image.png",
             query="Describe this logo",
             model="moondream"
         )
         print("Vision Response: moondream/direct- ", result)
-
+        '''
         result = dwani.Vision.caption_direct(
             file_path="image.png",
             query="Describe this logo",
             model="smolvla"
         )
         print("Vision Response: moondream/smolvla- ", result)
+        '''
     except Exception as e:
         print(f"Error in Vision module: {e}")
 

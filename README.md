@@ -23,7 +23,7 @@ dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 ### Text Query 
 ---
 - With model selection
-  - Supported models : gemma3 (default), qwen3, deepseek-r1-8b, sarvam-m
+  - gemma3 (default), qwen3, sarvam-m
 
 ---
 - gemma3
@@ -38,7 +38,7 @@ print(resp)
 ### Vision Query
 ---
 - With model selection
-  - Supported models : gemma3 (default), moondream
+  - gemma3 (default), moondream, smolvla
 - gemma3
 
 ```python

@@ -53,6 +53,15 @@ def run_vision():
         )
         print("Vision Response: moondream- ", result)
 
+        result = dwani.Vision.caption(
+            file_path="image.png",
+            query="Describe this logo",
+            src_lang="english",
+            tgt_lang="kannada",
+            model="smolvla"
+        )
+        print("Vision Response: smolvla- ", result)
+
         result = dwani.Vision.direct(
             file_path="image.png",
             query="Describe this logo",
@@ -65,6 +74,13 @@ def run_vision():
             model="moondream"
         )
         print("Vision Response: moondream/direct- ", result)
+
+        result = dwani.Vision.direct(
+            file_path="image.png",
+            query="Describe this logo",
+            model="smolvla"
+        )
+        print("Vision Response: moondream/smolvla- ", result)
     except Exception as e:
         print(f"Error in Vision module: {e}")
 

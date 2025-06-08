@@ -19,6 +19,14 @@ def run_chat():
 
         resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada", model="sarvam-m")
         print("Chat Response: sarvam-m- ", resp)
+
+        resp = dwani.Chat.direct(prompt="Hello!", model="gemma3")
+        print("Chat Response: gemma3/direct- ", resp)
+
+        resp = dwani.Chat.direct(prompt="Hello!", model="sarvam-m")
+        print("Chat Response: sarvam-m/direct- ", resp)
+
+
     except Exception as e:
         print(f"Error in Chat module: {e}")
 
@@ -40,6 +48,19 @@ def run_vision():
             model="moondream"
         )
         print("Vision Response: moondream- ", result)
+
+        result = dwani.Vision.direct(
+            file_path="image.png",
+            query="Describe this logo",
+            model="gemma3"
+        )
+        print("Vision Response: gemma3/direct- ", result)
+        result = dwani.Vision.direct(
+            file_path="image.png",
+            query="Describe this logo",
+            model="moondream"
+        )
+        print("Vision Response: moondream/direct- ", result)
     except Exception as e:
         print(f"Error in Vision module: {e}")
 

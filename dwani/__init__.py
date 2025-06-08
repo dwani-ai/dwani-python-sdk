@@ -24,6 +24,9 @@ class chat:
     @staticmethod
     def create(prompt, src_lang, tgt_lang, model="gemma3"):
         return _get_client().chat(prompt, src_lang, tgt_lang, model)
+    @staticmethod
+    def direct(prompt, model="gemma3", system_prompt =""):
+        return _get_client().chat_direct(prompt, model, system_prompt)
 
 class audio:
     @staticmethod
@@ -34,6 +37,9 @@ class vision:
     @staticmethod
     def caption(file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         return _get_client().caption(file_path, query, src_lang, tgt_lang, model)
+    @staticmethod
+    def direct(file_path, query="describe the image", model="gemma3", system_prompt=""):
+        return _get_client().caption_direct(file_path, query, model, system_prompt)
 
 class asr:
     @staticmethod

@@ -36,6 +36,29 @@ def normalize_language(lang):
     supported_langs = list(lang_name_to_code.keys()) + list(lang_code_to_code.keys())
     raise ValueError(f"Unsupported language: {lang}. Supported languages: {supported_langs}")
 
+def vision_direct(client, file_path, query="describe this image", model="gemma3", system_prompt=""):
+    url = (
+        f"{client.api_base}/v1/visual_query_direct"
+        f"?model={model}"
+    )
+    headers = {
+        **client._headers(),
+        "accept": "application/json"
+    }
+    with open(file_path, "rb") as f:
+        files = {"file": (file_path, f, "image/png")}
+        data = {"query": query, "system_prompt": system_prompt}
+        resp = requests.post(
+            url,
+            headers=headers,
+            files=files,
+            data=data
+        )
+    if resp.status_code != 200:
+        raise DwaniAPIError(resp)
+    return resp.json()
+
+
 def vision_caption(client, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
     # Validate model
     valid_models = ["gemma3", "qwen2.5vl", "moondream", "smolvla"]
@@ -73,3 +96,7 @@ class Vision:
     def caption(file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from . import _get_client
         return _get_client().caption(file_path, query, src_lang, tgt_lang, model)
+    @staticmethod
+    def caption_direct(file_path, query="describe the image", model="gemma3", system_prompt=""):
+        from . import _get_client
+        return _get_client().caption_direct(file_path, query, model, system_prompt)

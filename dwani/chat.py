@@ -36,6 +36,22 @@ def normalize_language(lang):
     supported_langs = list(lang_name_to_code.keys()) + list(lang_code_to_code.keys())
     raise ValueError(f"Unsupported language: {lang}. Supported languages: {supported_langs}")
 
+def chat_direct(client, prompt, model="gemma3", system_prompt=""):
+    url = f"{client.api_base}/v1/chat_direct"
+    payload = {
+        "prompt": prompt,
+        "model": model,
+        "system_prompt":system_prompt
+    }
+    resp = requests.post(
+        url,
+        headers={**client._headers(), "Content-Type": "application/json"},
+        json=payload
+    )
+    if resp.status_code != 200:
+        raise DwaniAPIError(resp)
+    return resp.json()
+
 def chat_create(client, prompt, src_lang, tgt_lang, model="gemma3"):
     # Validate model
     valid_models = ["gemma3", "qwen3", "deepseek-r1", "sarvam-m"]
@@ -67,3 +83,7 @@ class Chat:
     def create(prompt, src_lang, tgt_lang, model="gemma3"):
         from . import _get_client
         return _get_client().chat(prompt, src_lang, tgt_lang, model)
+    @staticmethod
+    def direct(prompt, model="gemma3", system_prompt=""):
+        from . import _get_client
+        return _get_client().chat_direct(prompt, model, system_prompt)

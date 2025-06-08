@@ -20,6 +20,10 @@ def run_chat():
         resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada", model="sarvam-m")
         print("Chat Response: sarvam-m- ", resp)
 
+
+        resp = dwani.Chat.direct(prompt="Hello!", model="qwen3")
+        print("Chat Response: qwen3/direct- ", resp)
+
         resp = dwani.Chat.direct(prompt="Hello!", model="gemma3")
         print("Chat Response: gemma3/direct- ", resp)
 

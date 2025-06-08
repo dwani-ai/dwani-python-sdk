@@ -22,7 +22,12 @@ class DwaniClient:
     def chat(self, prompt, src_lang, tgt_lang, model="gemma3"):
         from .chat import chat_create
         return chat_create(self, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
-    
+
+
+    def chat_direct(self, prompt, model="gemma3", system_prompt=""):
+        from .chat import chat_direct
+        return chat_direct(self, prompt=prompt, model=model, system_prompt=system_prompt)
+
     def speech(self, input, response_format="mp3"):
         from .audio import audio_speech
         return audio_speech(self, input=input, response_format=response_format)
@@ -30,6 +35,10 @@ class DwaniClient:
     def caption(self, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .vision import vision_caption
         return vision_caption(self, file_path=file_path, query=query, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
+
+    def caption_direct(self, file_path, query="describe the image", model="gemma3", system_prompt=""):
+        from .vision import vision_direct
+        return vision_direct(self, file_path=file_path, query=query, model=model, system_prompt=system_prompt)
 
     def transcribe(self, file_path, language=None):
         from .asr import asr_transcribe

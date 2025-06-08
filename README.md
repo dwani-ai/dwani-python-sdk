@@ -3,7 +3,7 @@
 
 ### Install the library
 ```bash
-pip install dwani
+pip install --upgrade dwani
 ```
 
 ### Languages supported
@@ -23,10 +23,10 @@ dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 ### Text Query 
 ---
 - With model selection
-  - Supported models : gemma3 (default), qwen3, deepseek-r1-8b, sarvam-m
+  - gemma3 (default), qwen3, sarvam-m
 
 ---
-- gemma3
+- gemma3 - with translation
 ```python
 resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada", model="gemma3")
 print(resp)
@@ -34,13 +34,23 @@ print(resp)
 ```json
 {'response': 'ನಮಸ್ತೆ! ಭಾರತ ಮತ್ತು ಕರ್ನಾಟಕವನ್ನು ಗಮನದಲ್ಲಿಟ್ಟುಕೊಂಡು ಇಂದು ನಿಮ್ಮ ಪ್ರಶ್ನೆಗಳಿಗೆ ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?'}
 ```
+
+- gemma3 - without translation
+```python
+resp = dwani.Chat.direct(prompt="Hello!", model="gemma3")
+print(resp)
+```
+```json
+{'response': 'Hello! I am Dwani, ready to assist you with information pertaining to India, specifically Karnataka. '}
+```
+
 ---
 ### Vision Query
 ---
 - With model selection
-  - Supported models : gemma3 (default), moondream
-- gemma3
+  - gemma3 (default), moondream, smolvla
 
+- gemma3 - with translation
 ```python
 result = dwani.Vision.caption(
     file_path="image.png",
@@ -54,6 +64,19 @@ print(result)
 ```json
 {'answer': 'ಒಂದು ವಾಕ್ಯದಲ್ಲಿ ಚಿತ್ರದ ಸಾರಾಂಶವನ್ನು ಇಲ್ಲಿ ನೀಡಲಾಗಿದೆಃ ಪ್ರಕಟಣೆಯ ಅವಲೋಕನವು ಪ್ರಸ್ತುತ ಅರವತ್ತನಾಲ್ಕು ದೇಶಗಳು/ಪ್ರದೇಶಗಳನ್ನು ಸೇರಿಸಲಾಗಿದೆ ಮತ್ತು ಇನ್ನೂ ಹದಿನಾರು ಪ್ರದೇಶಗಳನ್ನು ಸೇರಿಸಬೇಕಾಗಿದೆ. ಒದಗಿಸಲಾದ ಚಿತ್ರದಲ್ಲಿ ಲಾಂಛನವು ಕಾಣಿಸುವುದಿಲ್ಲ.'}
 ```
+- gemma3 - without translation
+```python
+result = dwani.Vision.caption_direct(
+    file_path="image.png",
+    query="Describe this logo",
+    model="gemma3"
+)
+print(result)
+```
+```json
+ {'answer': 'The logo displays a publishing overview stating that changes are under review, with a production rollout initiated at version sixty-four point one point one, expanding to sixteen countries/regions including Australia and Bangladesh.'}
+```
+
 ---
 ### Speech to Text -  Automatic Speech Recognition (ASR)
 ---
@@ -72,13 +95,13 @@ resp = dwani.Translate.run_translate(sentences="hi, i am gaganyatri", src_lang="
 print(resp)
 ```
 ```json
-{'translations': ['ಹಾಯ್']}
+{'translations': ['ಹಾಯ್, ನಾನು ಗಗನಯಾತ್ರಿ']}
 ```
 ---
 ### Text to Speech -  Speech Synthesis
 ---
 ```python
-response = dwani.Audio.speech(input="ಕರ್ನಾಟಕ ದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="wav")
+response = dwani.Audio.speech(input="ಕರ್ನಾಟಕದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="wav")
 with open("output.wav", "wb") as f:
     f.write(response)
 ```

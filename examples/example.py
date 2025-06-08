@@ -16,6 +16,21 @@ def run_chat():
 
         resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada", model="gemma3")
         print("Chat Response: gemma3- ", resp)
+
+        resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="kannada", model="sarvam-m")
+        print("Chat Response: sarvam-m- ", resp)
+
+
+        resp = dwani.Chat.direct(prompt="Hello!", model="qwen3")
+        print("Chat Response: qwen3/direct- ", resp)
+
+        resp = dwani.Chat.direct(prompt="Hello!", model="gemma3")
+        print("Chat Response: gemma3/direct- ", resp)
+
+        resp = dwani.Chat.direct(prompt="Hello!", model="sarvam-m")
+        print("Chat Response: sarvam-m/direct- ", resp)
+
+
     except Exception as e:
         print(f"Error in Chat module: {e}")
 
@@ -37,6 +52,36 @@ def run_vision():
             model="moondream"
         )
         print("Vision Response: moondream- ", result)
+        '''
+        result = dwani.Vision.caption(
+            file_path="image.png",
+            query="Describe this logo",
+            src_lang="english",
+            tgt_lang="kannada",
+            model="smolvla"
+        )
+        print("Vision Response: smolvla- ", result)
+        '''
+        result = dwani.Vision.caption_direct(
+            file_path="image.png",
+            query="Describe this logo",
+            model="gemma3"
+        )
+        print("Vision Response: gemma3/direct- ", result)
+        result = dwani.Vision.caption_direct(
+            file_path="image.png",
+            query="Describe this logo",
+            model="moondream"
+        )
+        print("Vision Response: moondream/direct- ", result)
+        '''
+        result = dwani.Vision.caption_direct(
+            file_path="image.png",
+            query="Describe this logo",
+            model="smolvla"
+        )
+        print("Vision Response: moondream/smolvla- ", result)
+        '''
     except Exception as e:
         print(f"Error in Vision module: {e}")
 

@@ -52,7 +52,7 @@ def run_vision():
             model="moondream"
         )
         print("Vision Response: moondream- ", result)
-
+        '''
         result = dwani.Vision.caption(
             file_path="image.png",
             query="Describe this logo",
@@ -61,8 +61,8 @@ def run_vision():
             model="smolvla"
         )
         print("Vision Response: smolvla- ", result)
-
-        result = dwani.Vision.direct(
+        '''
+        result = dwani.Vision.caption_direct(
             file_path="image.png",
             query="Describe this logo",
             model="gemma3"
@@ -75,7 +75,7 @@ def run_vision():
         )
         print("Vision Response: moondream/direct- ", result)
 
-        result = dwani.Vision.direct(
+        result = dwani.Vision.caption_direct(
             file_path="image.png",
             query="Describe this logo",
             model="smolvla"

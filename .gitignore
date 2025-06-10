@@ -4,7 +4,10 @@ __pycache__/
 *$py.class
 venv_new/
 NeMo/
-asr_venv
+
+latency_logs/
+*.logs
+
 *.nemo
 # C extensions
 *.so

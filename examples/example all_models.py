@@ -38,10 +38,23 @@ def run_chat():
         resp = measure_latency(dwani.Chat.create, prompt="Hello!", src_lang="english", tgt_lang="kannada")
         logging.info("Chat Response: default/gemma3- " + str(resp))
 
+        resp = measure_latency(dwani.Chat.create, prompt="Hello!", src_lang="english", tgt_lang="kannada", model="qwen3")
+        logging.info("Chat Response: qwen3- " + str(resp))
+
+        resp = measure_latency(dwani.Chat.create, prompt="Hello!", src_lang="english", tgt_lang="kannada", model="gemma3")
+        logging.info("Chat Response: gemma3- " + str(resp))
+
+        resp = measure_latency(dwani.Chat.create, prompt="Hello!", src_lang="english", tgt_lang="kannada", model="sarvam-m")
+        logging.info("Chat Response: sarvam-m- " + str(resp))
+
+        resp = measure_latency(dwani.Chat.direct, prompt="Hello!", model="qwen3")
+        logging.info("Chat Response: qwen3/direct- " + str(resp))
 
         resp = measure_latency(dwani.Chat.direct, prompt="Hello!", model="gemma3")
         logging.info("Chat Response: gemma3/direct- " + str(resp))
 
+        resp = measure_latency(dwani.Chat.direct, prompt="Hello!", model="sarvam-m")
+        logging.info("Chat Response: sarvam-m/direct- " + str(resp))
 
     except Exception as e:
         logging.error(f"Error in Chat module: {e}")
@@ -51,9 +64,14 @@ def run_vision():
         result = measure_latency(dwani.Vision.caption, file_path="image.png", query="Describe this logo", src_lang="english", tgt_lang="kannada", model="gemma3")
         logging.info("Vision Response: gemma3- " + str(result))
 
+        result = measure_latency(dwani.Vision.caption, file_path="image.png", query="Describe this logo", src_lang="english", tgt_lang="kannada", model="moondream")
+        logging.info("Vision Response: moondream- " + str(result))
+
         result = measure_latency(dwani.Vision.caption_direct, file_path="image.png", query="Describe this logo", model="gemma3")
         logging.info("Vision Response: gemma3/direct- " + str(result))
 
+        result = measure_latency(dwani.Vision.caption_direct, file_path="image.png", query="Describe this logo", model="moondream")
+        logging.info("Vision Response: moondream/direct- " + str(result))
 
     except Exception as e:
         logging.error(f"Error in Vision module: {e}")

@@ -30,7 +30,7 @@ def run_vision():
     try:
         result = dwani.Vision.caption(
             file_path="image.png",
-            query="Describe this logo",
+            query="Describe this image",
             src_lang="english",
             tgt_lang="kannada",
             model="gemma3"
@@ -38,7 +38,7 @@ def run_vision():
         print("Vision Response: Eng-Kan- ", result)
         result = dwani.Vision.caption(
             file_path="image.png",
-            query="Describe this logo",
+            query="Describe this image",
             src_lang="english",
             tgt_lang="english",
             model="gemma3"
@@ -47,7 +47,7 @@ def run_vision():
 
         result = dwani.Vision.caption(
             file_path="image.png",
-            query="Describe this logo",
+            query="Describe this image",
             src_lang="english",
             tgt_lang="german",
             model="gemma3"

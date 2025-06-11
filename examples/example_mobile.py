@@ -28,6 +28,15 @@ def run_chat():
 
 def run_vision():
     try:
+
+        result = dwani.Vision.caption(
+            file_path="image.png",
+            query="Describe this image",
+            src_lang="kannada",
+            tgt_lang="kannada",
+            model="gemma3"
+        )
+        print("Vision Response: Eng-Kan- ", result)
         result = dwani.Vision.caption(
             file_path="image.png",
             query="Describe this image",

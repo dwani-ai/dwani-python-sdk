@@ -19,11 +19,10 @@ def run_chat():
         print("Chat Response: Eng-Ger- ", resp)
         resp = dwani.Chat.create(prompt="Hello!", src_lang="german", tgt_lang="german")
         
-
-
         print("Chat Response: Ger-Eng ", resp)
         resp = dwani.Chat.create(prompt="Hello!", src_lang="german", tgt_lang="english")
         
+        print("Chat Response: Ger-Eng ", resp)
     except Exception as e:
         print(f"Error in Chat module: {e}")
 
@@ -53,7 +52,7 @@ def run_vision():
             tgt_lang="german",
             model="gemma3"
         )
-        print("Vision Response: Eng-Eng- ", result)
+        print("Vision Response: Eng-Ger- ", result)
 
         
     except Exception as e:

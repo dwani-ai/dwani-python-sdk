@@ -36,15 +36,26 @@ def run_vision():
             tgt_lang="kannada",
             model="gemma3"
         )
-        print("Vision Response: gemma3- ", result)
+        print("Vision Response: Eng-Kan- ", result)
         result = dwani.Vision.caption(
             file_path="image.png",
             query="Describe this logo",
             src_lang="english",
-            tgt_lang="kannada",
-            model="moondream"
+            tgt_lang="english",
+            model="gemma3"
         )
-        print("Vision Response: moondream- ", result)
+        print("Vision Response: Eng-Eng- ", result)
+
+        result = dwani.Vision.caption(
+            file_path="image.png",
+            query="Describe this logo",
+            src_lang="english",
+            tgt_lang="german",
+            model="gemma3"
+        )
+        print("Vision Response: Eng-Eng- ", result)
+
+        
     except Exception as e:
         print(f"Error in Vision module: {e}")
 

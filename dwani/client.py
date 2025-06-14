@@ -40,6 +40,10 @@ class DwaniClient:
         from .vision import vision_direct
         return vision_direct(self, file_path=file_path, query=query, model=model, system_prompt=system_prompt)
 
+    def caption_direct_raw(self, query="describe the image", model="gemma3"):
+        from .vision import vision_direct
+        return vision_direct(self, query=query, model=model)
+
     def transcribe(self, file_path, language=None):
         from .asr import asr_transcribe
         return asr_transcribe(self, file_path=file_path, language=language)

@@ -40,6 +40,9 @@ class vision:
     @staticmethod
     def caption_direct(file_path, query="describe the image", model="gemma3", system_prompt=""):
         return _get_client().caption_direct(file_path, query, model, system_prompt)
+    @staticmethod
+    def caption_direct_raw(query="describe the image", model="gemma3"):
+        return _get_client().caption_direct(query, model)
 
 class asr:
     @staticmethod

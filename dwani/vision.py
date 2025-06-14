@@ -60,14 +60,14 @@ def vision_direct(client, file_path, query="describe this image", model="gemma3"
 
 def vision_direct_raw(client, query="describe this image", model="gemma3"):
     url = (
-        f"{client.api_base}/v1/visual_query_direct_raw"
+        f"{client.api_base}/v1/visual_query_raw"
         f"?model={model}"
     )
     headers = {
         **client._headers(),
         "accept": "application/json"
     }
-    
+    print("sdk vision raw 0.1")
     resp = requests.post(
         url,
         headers=headers,

@@ -7,13 +7,23 @@ dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 
 def run_vision():
     try:
+        result = dwani.Chat.direct(
+            prompt="Hi, I am gaganyatri",
+            model="gemma3"
+        )
+        
+        print(result)
+        data = {
+            "query": "who are zou"
+        }
         result = dwani.Vision.caption_direct_raw(
-            query="Hi, I am gaganyatri",
+            data=data,
             model="gemma3"
         )
         
         print(result)
         
+
     except Exception as e:
         print(f"Error in Vision module: {e}")
 

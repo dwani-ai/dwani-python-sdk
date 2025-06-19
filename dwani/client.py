@@ -23,7 +23,6 @@ class DwaniClient:
         from .chat import chat_create
         return chat_create(self, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
 
-
     def chat_direct(self, prompt, model="gemma3", system_prompt=""):
         from .chat import chat_direct
         return chat_direct(self, prompt=prompt, model=model, system_prompt=system_prompt)
@@ -39,10 +38,6 @@ class DwaniClient:
     def caption_direct(self, file_path, query="describe the image", model="gemma3", system_prompt=""):
         from .vision import vision_direct
         return vision_direct(self, file_path=file_path, query=query, model=model, system_prompt=system_prompt)
-
-    def caption_direct_raw(self, query="describe the image", model="gemma3"):
-        from .vision import vision_direct_raw
-        return vision_direct_raw(self, query=query, model=model)
 
     def transcribe(self, file_path, language=None):
         from .asr import asr_transcribe

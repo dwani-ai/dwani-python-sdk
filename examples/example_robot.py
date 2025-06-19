@@ -13,16 +13,23 @@ def run_vision():
         )
         
         print(result)
-        data = {
-            "query": "who are zou"
-        }
-        result = dwani.Vision.caption_direct_raw(
-            data=data,
+        
+        result = dwani.Vision.caption(
+            file_path="image.png",
+            query="Describe this image",
+            src_lang="english",
+            tgt_lang="german",
             model="gemma3"
         )
-        
         print(result)
         
+        result = dwani.Vision.caption_direct(
+            file_path="image.png",
+            query="Describe this image",
+            src_lang="english",
+            tgt_lang="german",
+            model="gemma3"
+        )
 
     except Exception as e:
         print(f"Error in Vision module: {e}")

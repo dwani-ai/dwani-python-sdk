@@ -58,25 +58,6 @@ def vision_direct(client, file_path, query="describe this image", model="gemma3"
         raise DwaniAPIError(resp)
     return resp.json()
 
-def vision_direct_raw(client, query="describe this image", model="gemma3"):
-    url = (
-        f"{client.api_base}/v1/visual_query_raw"
-        f"?model={model}"
-    )
-    headers = {
-        **client._headers(),
-        "accept": "application/json"
-    }
-    print("sdk vision raw 0.1")
-    resp = requests.post(
-        url,
-        headers=headers,
-        data=query
-    )
-    if resp.status_code != 200:
-        raise DwaniAPIError(resp)
-    return resp.json()
-
 def vision_caption(client, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
     # Validate model
     valid_models = ["gemma3", "qwen2.5vl", "moondream", "smolvla"]
@@ -118,7 +99,3 @@ class Vision:
     def caption_direct(file_path, query="describe the image", model="gemma3", system_prompt=""):
         from . import _get_client
         return _get_client().caption_direct(file_path, query, model, system_prompt)
-    @staticmethod
-    def caption_direct_raw(query="describe the image", model="gemma3"):
-        from . import _get_client
-        return _get_client().caption_direct_raw(query, model)

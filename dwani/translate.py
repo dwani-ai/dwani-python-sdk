@@ -25,21 +25,27 @@ lang_code_to_code = {code: code for _, code in language_options}
 def normalize_language(lang):
     """Convert language input (name or code) to language code."""
     lang = lang.strip()
-    # Check if input is a language name (case-insensitive)
     lang_lower = lang.lower()
     if lang_lower in lang_name_to_code:
         return lang_name_to_code[lang_lower]
-    # Check if input is a language code
     if lang in lang_code_to_code:
         return lang_code_to_code[lang]
-    # Raise error if language is not supported
     supported_langs = list(lang_name_to_code.keys()) + list(lang_code_to_code.keys())
     raise ValueError(f"Unsupported language: {lang}. Supported languages: {supported_langs}")
 
+def split_into_sentences(text):
+    """Split a string into sentences based on full stops."""
+    if not text.strip():
+        return []
+    # Split on full stops, preserving non-empty sentences
+    sentences = [s.strip() for s in text.split('.') if s.strip()]
+    return sentences
+
 def run_translate(client, sentences, src_lang, tgt_lang):
-    # Convert single string to list if necessary
+    """Translate sentences in a single API call."""
+    # Convert single string to list of sentences if necessary
     if isinstance(sentences, str):
-        sentences = [sentences]
+        sentences = split_into_sentences(sentences)
     elif not isinstance(sentences, list):
         raise ValueError("sentences must be a string or a list of strings")
     
@@ -70,4 +76,4 @@ class Translate:
     @staticmethod
     def run_translate(sentences, src_lang, tgt_lang):
         from . import _get_client
-        return _get_client().translate(sentences, src_lang, tgt_lang)
+        return run_translate(_get_client(), sentences, src_lang, tgt_lang)

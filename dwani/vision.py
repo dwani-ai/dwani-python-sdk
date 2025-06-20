@@ -58,7 +58,6 @@ def vision_direct(client, file_path, query="describe this image", model="gemma3"
         raise DwaniAPIError(resp)
     return resp.json()
 
-
 def vision_caption(client, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
     # Validate model
     valid_models = ["gemma3", "qwen2.5vl", "moondream", "smolvla"]

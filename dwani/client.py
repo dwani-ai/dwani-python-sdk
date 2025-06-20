@@ -23,7 +23,6 @@ class DwaniClient:
         from .chat import chat_create
         return chat_create(self, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
 
-
     def chat_direct(self, prompt, model="gemma3", system_prompt=""):
         from .chat import chat_direct
         return chat_direct(self, prompt=prompt, model=model, system_prompt=system_prompt)

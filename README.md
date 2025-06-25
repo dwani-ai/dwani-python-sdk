@@ -11,7 +11,6 @@
 pip install --upgrade dwani
 ```
 
-
 ### Languages supported
 - Indian
   - Assamese, Bengali, Gujarati, Hindi, Kannada, Malayalam, Marathi Odia, Punjabi, Tamil, Telugu

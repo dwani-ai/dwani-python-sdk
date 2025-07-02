@@ -15,14 +15,27 @@ def run_chat():
         print("Chat Response: Eng-Eng- ", resp)
 
         resp = dwani.Chat.create(prompt="Hello!", src_lang="english", tgt_lang="german")
-
         print("Chat Response: Eng-Ger- ", resp)
+
         resp = dwani.Chat.create(prompt="Hello!", src_lang="german", tgt_lang="german")
-        
-        print("Chat Response: Ger-Eng ", resp)
+        print("Chat Response: Ger- German ", resp)
+
         resp = dwani.Chat.create(prompt="Hello!", src_lang="german", tgt_lang="english")
+        print("Chat Response: Ger- Eng ", resp)
         
-        print("Chat Response: Ger-Eng ", resp)
+
+        print("Chat Response: Direct ", resp)
+        resp = dwani.Chat.direct(prompt="Hello!")
+        print("Chat Response: Direct ", resp)
+
+
+        resp = dwani.Chat.direct(prompt="Hello!", system_prompt= "return answer in German")
+        print("Chat Response: Direct + System prompt", resp)
+
+        resp = dwani.Chat.direct(prompt="Hello!", system_prompt= "return answer in German")
+        print("Chat Response: Direct + System prompt", resp)
+        
+    
     except Exception as e:
         print(f"Error in Chat module: {e}")
 

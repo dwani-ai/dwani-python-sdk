@@ -30,8 +30,8 @@ class chat:
 
 class audio:
     @staticmethod
-    def speech(input, response_format="wav"):
-        return _get_client().speech(input, response_format)
+    def speech(input, response_format="wav", language="kannada"):
+        return _get_client().speech(input, response_format, language)
 
 class vision:
     @staticmethod

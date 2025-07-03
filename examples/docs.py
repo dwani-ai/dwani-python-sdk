@@ -51,13 +51,7 @@ def run_doc_query():
             page_number=1, src_lang="english", tgt_lang="kannada", model="gemma3"
         )
         print("Document Query Response: gemma3- ", result)
-        '''
-        result = dwani.Documents.run_doc_query(
-            file_path="dwani-workshop.pdf", prompt="list the key points",
-            page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
-        )
-        print("Document Query Response: moondream3- ", result)
-        '''
+        
     except Exception as e:
         print(f"Error in Document Query module: {e}")
 
@@ -68,13 +62,7 @@ def run_doc_ocr():
             file_path="dwani-workshop.pdf", model="gemma3"
         )
         print("Document Query Response: gemma3- ", result)
-        '''
-        result = dwani.Documents.run_doc_query(
-            file_path="dwani-workshop.pdf", prompt="list the key points",
-            page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
-        )
-        print("Document Query Response: moondream3- ", result)
-        '''
+
     except Exception as e:
         print(f"Error in Document Query module: {e}")
 

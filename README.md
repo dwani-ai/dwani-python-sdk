@@ -36,6 +36,16 @@ dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 
 
 
+#### Document - OCR
+```python
+result = dwani.Documents.run_ocr(file_path="dwani-workshop.pdf", model="gemma3")
+print(result)
+```
+```json
+{'page_content': "Here's the plain text extracted from the image:\n\ndwani's Goals\n\nTo integrate and enhance the following models and services for Kannada:\n\n*   **Automatic Speech Recognition (ASR):**"}
+```
+
+
 ### Text Query 
 ---
 - gemma3 (default)

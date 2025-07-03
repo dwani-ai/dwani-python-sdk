@@ -40,21 +40,19 @@ def validate_model(model):
         raise ValueError(f"Unsupported model: {model}. Supported models: {VALID_MODELS}")
     return model
 
-def document_ocr(client, file_path, language=None, model="gemma3"):
+def document_ocr(client, file_path, model="gemma3"):
     """OCR a document (image/PDF) and return extracted text."""
-    logger.debug(f"Calling document_ocr: file_path={file_path}, language={language}, model={model}")
+    logger.debug(f"Calling document_ocr: file_path={file_path}, model={model}")
     validate_model(model)
     
     data = {"model": model}
-    if language:
-        data["language"] = normalize_language(language)
-    
+
     with open(file_path, "rb") as f:
         mime_type = "application/pdf" if file_path.lower().endswith('.pdf') else "image/png"
         files = {"file": (file_path, f, mime_type)}
         try:
             resp = requests.post(
-                f"{client.api_base}/v1/document/ocr",
+                f"{client.api_base}/v1/extract-text",
                 headers=client._headers(),
                 files=files,
                 data=data,
@@ -256,10 +254,10 @@ def doc_query_kannada(
 
 class Documents:
     @staticmethod
-    def ocr(file_path, language=None, model="gemma3"):
+    def run_ocr(file_path, model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_ocr(client, file_path, language, model)
+        return document_ocr(client, file_path, model)
     
     @staticmethod
     def summarize(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):

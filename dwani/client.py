@@ -27,9 +27,9 @@ class DwaniClient:
         from .chat import chat_direct
         return chat_direct(self, prompt=prompt, model=model, system_prompt=system_prompt)
 
-    def speech(self, input, response_format="mp3"):
+    def speech(self, input, response_format="wav", language="kannada"):
         from .audio import audio_speech
-        return audio_speech(self, input=input, response_format=response_format)
+        return audio_speech(self, input=input, response_format=response_format, language=language)
 
     def caption(self, file_path, query="describe the image", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .vision import vision_caption
@@ -43,9 +43,9 @@ class DwaniClient:
         from .asr import asr_transcribe
         return asr_transcribe(self, file_path=file_path, language=language)
     
-    def document_ocr(self, file_path, language=None, model="gemma3"):
+    def document_ocr(self, file_path, model="gemma3"):
         from .docs import document_ocr
-        return document_ocr(self, file_path=file_path, language=language, model=model)
+        return document_ocr(self, file_path=file_path, model=model)
 
     def document_summarize(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .docs import document_summarize

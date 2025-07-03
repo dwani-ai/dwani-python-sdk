@@ -1,10 +1,11 @@
 from .exceptions import DwaniAPIError
 import requests
 
-def audio_speech(client, input, response_format="mp3", output_file=None):
+def audio_speech(client, input, response_format="mp3", output_file=None, language="kannada"):
     params = {
         "input": input,
-        "response_format": response_format
+        "response_format": response_format,
+        "language": language
     }
     resp = requests.post(
         f"{client.api_base}/v1/audio/speech",

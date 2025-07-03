@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "dwani"
 
-version = "0.1.13"
-description = "Multimodal API for Indian languages (Chat, Vision, TTS, ASR, Translate, Docs)"
+version = "0.1.16"
+description = "Multimodal API for Indian + European languages (Chat, Vision, TTS, ASR, Translate, Docs)"
 authors = [
     { name="sachin", email="python@dwani.ai" }
 ]
@@ -16,6 +16,7 @@ requires-python = ">=3.8"
 
 dependencies = [
     "requests>=2.25.0",
+    "openai"
 ]
 
 [project.urls]

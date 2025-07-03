@@ -10,6 +10,9 @@ def run_asr():
     try:
         result = dwani.ASR.transcribe(file_path="kannada_sample.wav", language="kannada")
         print("ASR Response:", result)
+
+        result = dwani.ASR.transcribe(file_path="english_sample.wav", language="english")
+        print("ASR Response:", result)
     except Exception as e:
         print(f"Error in ASR module: {e}")
 

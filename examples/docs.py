@@ -61,9 +61,27 @@ def run_doc_query():
     except Exception as e:
         print(f"Error in Document Query module: {e}")
 
+
+def run_doc_ocr():
+    try:
+        result = dwani.Documents.run_ocr(
+            file_path="dwani-workshop.pdf", model="gemma3"
+        )
+        print("Document Query Response: gemma3- ", result)
+        '''
+        result = dwani.Documents.run_doc_query(
+            file_path="dwani-workshop.pdf", prompt="list the key points",
+            page_number=1, src_lang="english", tgt_lang="kannada", model="moondream"
+        )
+        print("Document Query Response: moondream3- ", result)
+        '''
+    except Exception as e:
+        print(f"Error in Document Query module: {e}")
+
 def run_all_modules():
     print("\nRunning all modules...")
     run_doc_extract()
+    run_doc_ocr()
     run_doc_summarize()
     run_doc_query()
 
@@ -72,7 +90,8 @@ def display_menu():
     print("1. Document Extract")
     print("2. Document Summarize")
     print("3. Document Query")
-    print("9. Run All Modules")
+    print("4. Document OCR")
+    print("5. Run All Modules")
     print("0. Exit")
     return input("Enter your choice (0-9, default is 1): ").strip()
 
@@ -81,7 +100,7 @@ def main():
         choice = display_menu()
 
         # Default to Chat if no input or invalid input
-        if not choice or choice not in {"0", "1", "2", "3", "4"}:
+        if not choice or choice not in {"0", "1", "2", "3", "4", "5"}:
             choice = "1"
 
         if choice == "0":
@@ -94,6 +113,8 @@ def main():
         elif choice == "3":
             run_doc_query()
         elif choice == "4":
+            run_doc_ocr()
+        elif choice == "5":
             run_all_modules()
 
 if __name__ == "__main__":

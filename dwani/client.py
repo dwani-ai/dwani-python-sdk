@@ -43,9 +43,9 @@ class DwaniClient:
         from .asr import asr_transcribe
         return asr_transcribe(self, file_path=file_path, language=language)
     
-    def document_ocr(self, file_path, language=None, model="gemma3"):
+    def document_ocr(self, file_path, model="gemma3"):
         from .docs import document_ocr
-        return document_ocr(self, file_path=file_path, language=language, model=model)
+        return document_ocr(self, file_path=file_path, model=model)
 
     def document_summarize(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .docs import document_summarize

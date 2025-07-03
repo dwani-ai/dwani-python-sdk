@@ -13,6 +13,10 @@ latency_logs/
 *.so
 output.mp3
 output.wav
+output_kannada.wav
+output_english.wav
+output_german.wav
+
 # Distribution / packaging
 .Python
 build/

@@ -32,6 +32,8 @@ dwani.api_base = os.getenv("DWANI_API_BASE_URL")
   - [examples/vision.py](examples/vision.py)
   - [examples/docs.py](examples/docs.py)
   - [examples/speech.py](examples/speech.py)
+  - [examples/asr.py](examples/asr.py)
+
 
 
 ### Text Query 
@@ -88,7 +90,7 @@ print(resp)
 ### Text to Speech -  Speech Synthesis
 ---
 ```python
-response = dwani.Audio.speech(input="ಕರ್ನಾಟಕದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="wav")
+response = dwani.Audio.speech(input="ಕರ್ನಾಟಕದ ರಾಜಧಾನಿ ಯಾವುದು", response_format="wav", language="kannada")
 with open("output.wav", "wb") as f:
     f.write(response)
 ```

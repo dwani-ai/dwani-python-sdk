@@ -1,0 +1,25 @@
+# Include essential files
+include README.md
+include LICENSE
+
+# Include all Python files in the dwani package
+recursive-include dwani *.py
+
+# Exclude the examples directory and its contents
+exclude examples/*
+recursive-exclude examples *
+
+# Exclude build artifacts and virtual environment
+exclude dist/*
+exclude dwani.egg-info/*
+exclude venv/*
+recursive-exclude dist *
+recursive-exclude dwani.egg-info *
+recursive-exclude venv *
+
+# Exclude other common unwanted files
+exclude .git/*
+exclude .gitignore
+exclude *.pyc
+exclude *.pyo
+exclude __pycache__/*

@@ -27,14 +27,17 @@ dwani.api_key = os.getenv("DWANI_API_KEY")
 dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 ```
 
-- Check examples folder for detailed use cases
+
+---
+
+- Source Code : [https://github.com/dwani-ai/dwani-python-sdk](https://github.com/dwani-ai/dwani-python-sdk)
+- Check examples folder for detailed use cases 
+
   - [examples/chat.py](examples/chat.py)
   - [examples/vision.py](examples/vision.py)
   - [examples/docs.py](examples/docs.py)
   - [examples/speech.py](examples/speech.py)
   - [examples/asr.py](examples/asr.py)
-
-
 
 #### Document - OCR
 ```python

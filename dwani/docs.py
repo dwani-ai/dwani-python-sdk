@@ -281,7 +281,7 @@ def doc_query_kannada(
 
 class Documents:
     @staticmethod
-    def run_ocr(file_path, page_number=1,model="gemma3"):
+    def run_ocr_number(file_path, page_number=1,model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
         return document_ocr_number(client, file_path, page_number=page_number, model=model)

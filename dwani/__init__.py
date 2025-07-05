@@ -53,8 +53,12 @@ class translate:
 
 class document:
     @staticmethod
-    def run_ocr(file_path, model="gemma3"):
-        return _get_client().document_ocr(file_path, model)
+    def run_ocr_number(file_path, page_number=1, model="gemma3"):
+        return _get_client().document_ocr_number(file_path, page_number, model)
+    
+    @staticmethod
+    def run_ocr_all(file_path, model="gemma3"):
+        return _get_client().document_ocr_all(file_path, model)
     
     @staticmethod
     def run_summarize(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):

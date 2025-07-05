@@ -40,12 +40,40 @@ def validate_model(model):
         raise ValueError(f"Unsupported model: {model}. Supported models: {VALID_MODELS}")
     return model
 
-def document_ocr(client, file_path, model="gemma3"):
+def document_ocr_all(client, file_path, model="gemma3"):
     """OCR a document (image/PDF) and return extracted text."""
     logger.debug(f"Calling document_ocr: file_path={file_path}, model={model}")
     validate_model(model)
     
     data = {"model": model}
+
+    with open(file_path, "rb") as f:
+        mime_type = "application/pdf" if file_path.lower().endswith('.pdf') else "image/png"
+        files = {"file": (file_path, f, mime_type)}
+        try:
+            resp = requests.post(
+                f"{client.api_base}/v1/extract-text-all",
+                headers=client._headers(),
+                files=files,
+                data=data,
+                timeout=60
+            )
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            logger.error(f"OCR request failed: {str(e)}")
+            raise DwaniAPIError(resp) if 'resp' in locals() else DwaniAPIError.from_exception(e)
+    
+    logger.debug(f"OCR response: {resp.status_code}")
+    return resp.json()
+
+
+def document_ocr_number(client, file_path, page_number=1, model="gemma3"):
+    """OCR a document (image/PDF) and return extracted text."""
+    logger.debug(f"Calling document_ocr: file_path={file_path}, model={model}")
+    validate_model(model)
+    
+    data = {"model": model,
+            "page_number": str(page_number)}
 
     with open(file_path, "rb") as f:
         mime_type = "application/pdf" if file_path.lower().endswith('.pdf') else "image/png"
@@ -65,7 +93,6 @@ def document_ocr(client, file_path, model="gemma3"):
     
     logger.debug(f"OCR response: {resp.status_code}")
     return resp.json()
-
 def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
     """Summarize a PDF document with language and page number options."""
     logger.debug(f"Calling document_summarize: file_path={file_path}, page_number={page_number}, src_lang={src_lang}, tgt_lang={tgt_lang}, model={model}")
@@ -254,10 +281,15 @@ def doc_query_kannada(
 
 class Documents:
     @staticmethod
-    def run_ocr(file_path, model="gemma3"):
+    def run_ocr(file_path, page_number=1,model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_ocr(client, file_path, model)
+        return document_ocr_number(client, file_path, page_number=page_number, model=model)
+    @staticmethod
+    def run_ocr_all(file_path, model="gemma3"):
+        from .client import DwaniClient
+        client = DwaniClient()
+        return document_ocr_all(client, file_path, model)
     
     @staticmethod
     def summarize(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):

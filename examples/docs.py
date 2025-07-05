@@ -58,8 +58,13 @@ def run_doc_query():
 
 def run_doc_ocr():
     try:
-        result = dwani.Documents.run_ocr(
+        result = dwani.Documents.run_ocr_all(
             file_path="dwani-workshop.pdf", model="gemma3"
+        )
+        print("Document Query Response: gemma3- ", result)
+
+        result = dwani.Documents.run_ocr_number(
+            file_path="dwani-workshop.pdf", page_number=1, model="gemma3"
         )
         print("Document Query Response: gemma3- ", result)
 

@@ -43,9 +43,13 @@ class DwaniClient:
         from .asr import asr_transcribe
         return asr_transcribe(self, file_path=file_path, language=language)
     
-    def document_ocr(self, file_path, model="gemma3"):
-        from .docs import document_ocr
-        return document_ocr(self, file_path=file_path, model=model)
+    def document_ocr_number(self, file_path, page_number=1,model="gemma3"):
+        from .docs import document_ocr_number
+        return document_ocr_number(self, file_path=file_path, page_number=page_number, model=model)
+
+    def document_ocr_all(self, file_path,model="gemma3"):
+        from .docs import document_ocr_all
+        return document_ocr_all(self, file_path=file_path, model=model)
 
     def document_summarize(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .docs import document_summarize

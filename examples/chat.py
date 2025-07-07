@@ -23,16 +23,20 @@ def run_chat():
         resp = dwani.Chat.create(prompt="Hello!", src_lang="german", tgt_lang="english")
         print("Chat Response: Ger- Eng ", resp)
         
+    
+    except Exception as e:
+        print(f"Error in Chat module: {e}")
 
-        print("Chat Response: Direct ", resp)
+def run_chat_direct():
+    try:
         resp = dwani.Chat.direct(prompt="Hello!")
         print("Chat Response: Direct ", resp)
 
 
-        resp = dwani.Chat.direct(prompt="Hello!", system_prompt= "return answer in German")
+        #resp = dwani.Chat.direct(prompt="Hello!", system_prompt= "return answer in German")
         print("Chat Response: Direct + System prompt", resp)
 
-        resp = dwani.Chat.direct(prompt="Hello!", system_prompt= "return answer in German")
+        #resp = dwani.Chat.direct(prompt="Hello!", system_prompt= "return answer in German")
         print("Chat Response: Direct + System prompt", resp)
         
     
@@ -42,10 +46,13 @@ def run_chat():
 def run_all_modules():
     print("\nRunning all modules...")
     run_chat()
+    run_chat_direct()
 
 def display_menu():
     print("\ndwani.ai Chat API Module Selector")
     print("1. Chat (default)")
+    print("2. Chat Direct")
+    
     print("0. Exit")
     return input("Enter your choice (0-9, default is 1): ").strip()
 
@@ -54,7 +61,7 @@ def main():
         choice = display_menu()
 
         # Default to Chat if no input or invalid input
-        if not choice or choice not in {"0", "1"}:
+        if not choice or choice not in {"0", "1", "2"}:
             choice = "1"
 
         if choice == "0":
@@ -62,6 +69,8 @@ def main():
             break
         elif choice == "1":
             run_chat()
+        elif choice == "2":
+            run_chat_direct()
 
 if __name__ == "__main__":
     main()

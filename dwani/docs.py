@@ -56,7 +56,7 @@ def document_ocr_all(client, file_path, model="gemma3"):
                 headers=client._headers(),
                 files=files,
                 data=data,
-                timeout=60
+                timeout=600
             )
             resp.raise_for_status()
         except requests.RequestException as e:

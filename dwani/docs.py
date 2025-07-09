@@ -73,8 +73,9 @@ def document_ocr_number(client, file_path, page_number, model="gemma3"):
     validate_model(model)
     
     data = {"model": model,
-            "page_number": str(page_number)}
-
+            "page_number": page_number}
+    
+    params = {"model": data["model"], "page_number": data["page_number"]}
     with open(file_path, "rb") as f:
         mime_type = "application/pdf" if file_path.lower().endswith('.pdf') else "image/png"
         files = {"file": (file_path, f, mime_type)}
@@ -83,7 +84,7 @@ def document_ocr_number(client, file_path, page_number, model="gemma3"):
                 f"{client.api_base}/v1/extract-text",
                 headers=client._headers(),
                 files=files,
-                data=data,
+                params=params,
                 timeout=60
             )
             resp.raise_for_status()
@@ -281,10 +282,10 @@ def doc_query_kannada(
 
 class Documents:
     @staticmethod
-    def run_ocr_number(file_path, page_number,model="gemma3"):
+    def run_ocr_number(file_path, page_number=2,model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_ocr_number(client, file_path, page_number=page_number, model=model)
+        return document_ocr_number(client, file_path, page_number, model)
     @staticmethod
     def run_ocr_all(file_path, model="gemma3"):
         from .client import DwaniClient

@@ -67,7 +67,7 @@ def document_ocr_all(client, file_path, model="gemma3"):
     return resp.json()
 
 
-def document_ocr_number(client, file_path, page_number=1, model="gemma3"):
+def document_ocr_number(client, file_path, page_number, model="gemma3"):
     """OCR a document (image/PDF) and return extracted text."""
     logger.debug(f"Calling document_ocr: file_path={file_path}, model={model}")
     validate_model(model)
@@ -281,7 +281,7 @@ def doc_query_kannada(
 
 class Documents:
     @staticmethod
-    def run_ocr_number(file_path, page_number=1,model="gemma3"):
+    def run_ocr_number(file_path, page_number,model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
         return document_ocr_number(client, file_path, page_number=page_number, model=model)

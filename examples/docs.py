@@ -59,6 +59,11 @@ def run_doc_query():
 def run_doc_ocr():
     try:
         result = dwani.Documents.run_ocr_all(
+            file_path="sample-resume.pdf", model="gemma3"
+        )
+        print("Document Query Response: gemma3- ", result)
+        '''
+        result = dwani.Documents.run_ocr_all(
             file_path="dwani-workshop.pdf", model="gemma3"
         )
         print("Document Query Response: gemma3- ", result)
@@ -67,7 +72,7 @@ def run_doc_ocr():
             file_path="dwani-workshop.pdf", page_number=1, model="gemma3"
         )
         print("Document Query Response: gemma3- ", result)
-
+    '''
     except Exception as e:
         print(f"Error in Document Query module: {e}")
 

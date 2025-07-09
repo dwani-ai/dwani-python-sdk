@@ -10,11 +10,11 @@ dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 #        )
 
 result = dwani.Documents.run_ocr_number(
-            file_path="docs-test.pdf", model="gemma3", page_number=1
+            file_path="olmocr-paper.pdf", model="gemma3", page_number=1
         )
 
 print("Document Query Response: gemma3- ", result)
-        
+'''        
 result = dwani.Documents.run_ocr_number(
             file_path="docs-test.pdf", model="gemma3", page_number=2
         )
@@ -26,3 +26,4 @@ result = dwani.Documents.run_ocr_number(
         )
 
 print("Document Query Response: gemma3- ", result)
+'''

@@ -66,17 +66,17 @@ class document:
     
 
     @staticmethod
-    def run_summarize_all(file_path, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
-        return _get_client().document_summarize_all(file_path, src_lang, tgt_lang, model)
+    def run_summarize_all(file_path,  tgt_lang="kan_Knda", model="gemma3"):
+        return _get_client().document_summarize_all(file_path, tgt_lang, model)
     
     @staticmethod
-    def run_extract(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
-        return _get_client().extract(file_path, page_number, src_lang, tgt_lang, model)
+    def run_extract(file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
+        return _get_client().extract(file_path, page_number, tgt_lang, model)
     
     @staticmethod
     def run_doc_query(file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         return _get_client().doc_query(file_path, page_number, prompt, src_lang, tgt_lang, model)
     
     @staticmethod
-    def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+    def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", src_lang="kan_Latn", tgt_lang="kan_Knda", model="gemma3"):
         return _get_client().doc_query_kannada(file_path, page_number, prompt, src_lang, tgt_lang, model)

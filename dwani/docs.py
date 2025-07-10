@@ -217,6 +217,7 @@ def doc_query(
     page_number=1,
     prompt="list the key points",
     tgt_lang="kan_Knda",
+    src_lang="eng_Latn",
     model="gemma3"
 ):
     """Query a document with a custom prompt and language options."""
@@ -232,6 +233,8 @@ def doc_query(
     
     tgt_lang_code = normalize_language(tgt_lang)
     
+    src_lang_code = normalize_language(src_lang)
+
     url = f"{client.api_base}/v1/indic-custom-prompt-pdf"
     headers = client._headers()
     with open(file_path, "rb") as f:
@@ -240,6 +243,7 @@ def doc_query(
             "page_number": str(page_number),
             "prompt": prompt,
             "tgt_lang": tgt_lang_code,
+            "src_lang": src_lang_code,
             "model": model
         }
 
@@ -266,6 +270,7 @@ def doc_query_kannada(
     page_number=1,
     prompt="list key points",
     tgt_lang="kan_Knda",
+    src_lang="kan_Knda",
     model="gemma3"
 ):
     """Query a document with a custom prompt, outputting in Kannada."""
@@ -280,6 +285,9 @@ def doc_query_kannada(
         raise ValueError("Prompt cannot be empty")
     
     tgt_lang_code = normalize_language(tgt_lang) if tgt_lang else "kan_Knda"
+
+    src_lang_code = normalize_language(src_lang) 
+    
     
     url = f"{client.api_base}/v1/indic-custom-prompt-pdf"
     headers = client._headers()
@@ -290,6 +298,7 @@ def doc_query_kannada(
             "page_number": str(page_number),
             "prompt": prompt,
             "tgt_lang": tgt_lang_code,
+            "src_lang": src_lang_code,
             "model": model
         }
         try:

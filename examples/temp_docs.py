@@ -32,7 +32,7 @@ print("Document Query Response: gemma3- ", result)
 print("------------")
 '''
 result = dwani.Documents.run_ocr_all(
-            file_path="olmocr-paper.pdf", model="gemma3"
+            file_path="dwani-ai-pitch-deck.pdf", model="gemma3"
         )
 
 

@@ -52,7 +52,8 @@ def vision_direct(client, file_path, query="describe this image", model="gemma3"
             url,
             headers=headers,
             files=files,
-            data=data
+            data=data,
+            timeout=90
         )
     if resp.status_code != 200:
         raise DwaniAPIError(resp)
@@ -84,7 +85,8 @@ def vision_caption(client, file_path, query="describe the image", src_lang="eng_
             url,
             headers=headers,
             files=files,
-            data=data
+            data=data,
+            timeout=90
         )
     if resp.status_code != 200:
         raise DwaniAPIError(resp)

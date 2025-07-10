@@ -56,7 +56,7 @@ def document_ocr_all(client, file_path, model="gemma3"):
                 headers=client._headers(),
                 files=files,
                 data=data,
-                timeout=60
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:
@@ -67,14 +67,15 @@ def document_ocr_all(client, file_path, model="gemma3"):
     return resp.json()
 
 
-def document_ocr_number(client, file_path, page_number=1, model="gemma3"):
+def document_ocr_number(client, file_path, page_number, model="gemma3"):
     """OCR a document (image/PDF) and return extracted text."""
     logger.debug(f"Calling document_ocr: file_path={file_path}, model={model}")
     validate_model(model)
     
     data = {"model": model,
-            "page_number": str(page_number)}
-
+            "page_number": page_number}
+    
+    params = {"model": data["model"], "page_number": data["page_number"]}
     with open(file_path, "rb") as f:
         mime_type = "application/pdf" if file_path.lower().endswith('.pdf') else "image/png"
         files = {"file": (file_path, f, mime_type)}
@@ -83,8 +84,8 @@ def document_ocr_number(client, file_path, page_number=1, model="gemma3"):
                 f"{client.api_base}/v1/extract-text",
                 headers=client._headers(),
                 files=files,
-                data=data,
-                timeout=60
+                params=params,
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:
@@ -123,7 +124,7 @@ def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tg
                 headers=headers,
                 files=files,
                 data=data,
-                timeout=60
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:
@@ -164,7 +165,7 @@ def extract(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan
                 headers=headers,
                 files=files,
                 data=data,
-                timeout=60
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:
@@ -216,7 +217,7 @@ def doc_query(
                 headers=headers,
                 files=files,
                 data=data,
-                timeout=60
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:
@@ -268,7 +269,7 @@ def doc_query_kannada(
                 headers=headers,
                 files=files,
                 data=data,
-                timeout=60
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:
@@ -281,10 +282,10 @@ def doc_query_kannada(
 
 class Documents:
     @staticmethod
-    def run_ocr_number(file_path, page_number=1,model="gemma3"):
+    def run_ocr_number(file_path, page_number=2,model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_ocr_number(client, file_path, page_number=page_number, model=model)
+        return document_ocr_number(client, file_path, page_number, model)
     @staticmethod
     def run_ocr_all(file_path, model="gemma3"):
         from .client import DwaniClient

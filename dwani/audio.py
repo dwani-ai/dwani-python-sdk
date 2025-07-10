@@ -12,7 +12,8 @@ def audio_speech(client, input, response_format="mp3", output_file=None, languag
         headers={**client._headers(), "accept": "application/json"},
         params=params,
         data='',  # Empty body, as in the curl example
-        stream=True
+        stream=True,
+        timeout=90
     )
     if resp.status_code != 200:
         raise DwaniAPIError(resp)

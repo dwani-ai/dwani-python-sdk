@@ -30,7 +30,6 @@ result = dwani.Documents.run_ocr_number(
 print("Document Query Response: gemma3- ", result)
 
 print("------------")
-'''
 result = dwani.Documents.run_ocr_all(
             file_path="dwani-ai-pitch-deck.pdf", model="gemma3"
         )
@@ -43,8 +42,35 @@ result = dwani.Documents.run_ocr_all(
 result = dwani.Documents.run_ocr_all(
             file_path="dwani-ai-pitch-deck.pdf", model="gemma3"
         )
-
-
-
 print("Document Query Response: gemma3- ", result)
 
+'''
+
+result = dwani.Documents.summarize_page(
+            file_path="dwani-ai-pitch-deck.pdf", model="gemma3" , page_number= 1
+        )
+print("Document Query Response: gemma3- ", result)
+
+
+
+result = dwani.Documents.summarize_page(
+            file_path="dwani-ai-pitch-deck.pdf", model="gemma3" , page_number= 3, tgt_lang="english"
+        )
+print("Document Query Response: gemma3- ", result)
+
+result = dwani.Documents.summarize_page(
+            file_path="dwani-ai-pitch-deck.pdf", model="gemma3" , page_number= 4 , tgt_lang="english"
+        )
+print("Document Query Response: gemma3- ", result)
+
+result = dwani.Documents.summarize_page(
+            file_path="dwani-ai-pitch-deck.pdf", model="gemma3" , page_number= 8 , tgt_lang="english"
+        )
+print("Document Query Response: gemma3- ", result)
+
+
+
+result = dwani.Documents.summarize_all(
+            file_path="dwani-ai-pitch-deck.pdf", model="gemma3" , tgt_lang="english"
+        )
+print("Document Query Response: gemma3- ", result)

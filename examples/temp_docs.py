@@ -36,5 +36,10 @@ result = dwani.Documents.run_ocr_all(
         )
 
 
+result = dwani.Documents.run_ocr_all(
+            file_path="dwani-workshop.pdf", model="gemma3"
+        )
+
+
 print("Document Query Response: gemma3- ", result)
 

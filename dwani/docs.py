@@ -56,7 +56,7 @@ def document_ocr_all(client, file_path, model="gemma3"):
                 headers=client._headers(),
                 files=files,
                 data=data,
-                timeout=6000
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:
@@ -85,7 +85,7 @@ def document_ocr_number(client, file_path, page_number, model="gemma3"):
                 headers=client._headers(),
                 files=files,
                 params=params,
-                timeout=60
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:
@@ -124,7 +124,7 @@ def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tg
                 headers=headers,
                 files=files,
                 data=data,
-                timeout=60
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:
@@ -165,7 +165,7 @@ def extract(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan
                 headers=headers,
                 files=files,
                 data=data,
-                timeout=60
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:
@@ -217,7 +217,7 @@ def doc_query(
                 headers=headers,
                 files=files,
                 data=data,
-                timeout=60
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:
@@ -269,7 +269,7 @@ def doc_query_kannada(
                 headers=headers,
                 files=files,
                 data=data,
-                timeout=60
+                timeout=90
             )
             resp.raise_for_status()
         except requests.RequestException as e:

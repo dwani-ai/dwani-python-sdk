@@ -66,7 +66,8 @@ def run_translate(client, sentences, src_lang, tgt_lang):
     resp = requests.post(
         url,
         headers={**client._headers(), "Content-Type": "application/json", "accept": "application/json"},
-        json=payload
+        json=payload,
+        timeout=90
     )
     if resp.status_code != 200:
         raise DwaniAPIError(resp)

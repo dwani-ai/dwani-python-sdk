@@ -42,7 +42,8 @@ def asr_transcribe(client, file_path, language):
         resp = requests.post(
             f"{client.api_base}/v1/transcribe/?language={api_language}",
             headers=client._headers(),
-            files=files
+            files=files,
+            timeout=90
         )
     if resp.status_code != 200:
         raise DwaniAPIError(resp)

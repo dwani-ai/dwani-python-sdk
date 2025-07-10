@@ -46,7 +46,8 @@ def chat_direct(client, prompt, model="gemma3", system_prompt=""):
     resp = requests.post(
         url,
         headers={**client._headers(), "Content-Type": "application/json"},
-        json=payload
+        json=payload,
+        timeout=90
     )
     if resp.status_code != 200:
         raise DwaniAPIError(resp)
@@ -72,7 +73,8 @@ def chat_create(client, prompt, src_lang, tgt_lang, model="gemma3"):
     resp = requests.post(
         url,
         headers={**client._headers(), "Content-Type": "application/json"},
-        json=payload
+        json=payload,
+        timeout=90
     )
     if resp.status_code != 200:
         raise DwaniAPIError(resp)

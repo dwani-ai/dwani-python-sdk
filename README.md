@@ -41,7 +41,7 @@ dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 
 #### Document - OCR
 ```python
-result = dwani.Documents.run_ocr_number(file_path="dwani-workshop.pdf", page_number=1, model="gemma3")
+result = dwani.Documents.run_ocr_page(file_path="dwani-workshop.pdf", page_number=1, model="gemma3")
 print(result)
 ```
 ```json

@@ -51,13 +51,13 @@ class DwaniClient:
         from .docs import document_ocr_all
         return document_ocr_all(self, file_path=file_path, model=model)
 
-    def document_summarize(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+    def document_summarize(self, file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
         from .docs import document_summarize
-        return document_summarize(self, file_path, page_number, src_lang, tgt_lang, model)
+        return document_summarize(self, file_path, page_number, tgt_lang, model)
 
-    def extract(self, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+    def extract(self, file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
         from .docs import extract
-        return extract(self, file_path=file_path, page_number=page_number, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
+        return extract(self, file_path=file_path, page_number=page_number, tgt_lang=tgt_lang, model=model)
 
     def doc_query(self, file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .docs import doc_query

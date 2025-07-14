@@ -67,7 +67,7 @@ def document_ocr_all(client, file_path, model="gemma3"):
     return resp.json()
 
 
-def document_ocr_number(client, file_path, page_number, model="gemma3"):
+def document_ocr_page(client, file_path, page_number, model="gemma3"):
     """OCR a document (image/PDF) and return extracted text."""
     logger.debug(f"Calling document_ocr: file_path={file_path}, model={model}")
     validate_model(model)
@@ -94,9 +94,10 @@ def document_ocr_number(client, file_path, page_number, model="gemma3"):
     
     logger.debug(f"OCR response: {resp.status_code}")
     return resp.json()
-def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+
+def document_summarize_page(client, file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
     """Summarize a PDF document with language and page number options."""
-    logger.debug(f"Calling document_summarize: file_path={file_path}, page_number={page_number}, src_lang={src_lang}, tgt_lang={tgt_lang}, model={model}")
+    logger.debug(f"Calling document_summarize: file_path={file_path}, page_number={page_number}, tgt_lang={tgt_lang}, model={model}")
     validate_model(model)
     
     if not file_path.lower().endswith('.pdf'):
@@ -104,7 +105,6 @@ def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tg
     if page_number < 1:
         raise ValueError("Page number must be at least 1")
     
-    src_lang_code = normalize_language(src_lang)
     tgt_lang_code = normalize_language(tgt_lang)
     
     url = f"{client.api_base}/v1/indic-summarize-pdf"
@@ -113,7 +113,6 @@ def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tg
         files = {"file": (file_path, f, "application/pdf")}
         data = {
             "page_number": str(page_number),
-            "src_lang": src_lang_code,
             "tgt_lang": tgt_lang_code,
             "model": model
         }
@@ -135,9 +134,47 @@ def document_summarize(client, file_path, page_number=1, src_lang="eng_Latn", tg
 
     return resp.json()
 
-def extract(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+
+def document_summarize_all(client, file_path, tgt_lang="kan_Knda", model="gemma3"):
+    """Summarize a PDF document with language """
+    logger.debug(f"Calling document_summarize: file_path={file_path}, tgt_lang={tgt_lang}, model={model}")
+    validate_model(model)
+    
+    if not file_path.lower().endswith('.pdf'):
+        raise ValueError("File must be a PDF")
+    
+    tgt_lang_code = normalize_language(tgt_lang)
+    
+    url = f"{client.api_base}/v1/indic-summarize-pdf-all"
+    headers = client._headers()
+    with open(file_path, "rb") as f:
+        files = {"file": (file_path, f, "application/pdf")}
+        data = {
+            "tgt_lang": tgt_lang_code,
+            "model": model
+        }
+
+        try:
+            resp = requests.post(
+                url,
+                headers=headers,
+                files=files,
+                data=data,
+                timeout=90
+            )
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            logger.error(f"Summarize request failed: {str(e)}")
+            raise DwaniAPIError(resp) if 'resp' in locals() else DwaniAPIError.from_exception(e)
+    
+    logger.debug(f"Summarize response: {resp.status_code}")
+
+    return resp.json()
+
+
+def extract(client, file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
     """Extract and translate text from a PDF document using form data."""
-    logger.debug(f"Calling extract: file_path={file_path}, page_number={page_number}, src_lang={src_lang}, tgt_lang={tgt_lang}, model={model}")
+    logger.debug(f"Calling extract: file_path={file_path}, page_number={page_number}, tgt_lang={tgt_lang}, model={model}")
     validate_model(model)
     
     if not file_path.lower().endswith('.pdf'):
@@ -145,7 +182,6 @@ def extract(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan
     if page_number < 1:
         raise ValueError("Page number must be at least 1")
     
-    src_lang_code = normalize_language(src_lang)
     tgt_lang_code = normalize_language(tgt_lang)
     
     url = f"{client.api_base}/v1/indic-extract-text/"
@@ -155,7 +191,6 @@ def extract(client, file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan
 
         data = {
             "page_number": str(page_number),
-            "src_lang": src_lang_code,
             "tgt_lang": tgt_lang_code,
             "model": model
         }
@@ -181,12 +216,12 @@ def doc_query(
     file_path,
     page_number=1,
     prompt="list the key points",
-    src_lang="eng_Latn",
     tgt_lang="kan_Knda",
+    src_lang="eng_Latn",
     model="gemma3"
 ):
     """Query a document with a custom prompt and language options."""
-    logger.debug(f"Calling doc_query: file_path={file_path}, page_number={page_number}, prompt={prompt}, src_lang={src_lang}, tgt_lang={tgt_lang}, model={model}")
+    logger.debug(f"Calling doc_query: file_path={file_path}, page_number={page_number}, prompt={prompt}, tgt_lang={tgt_lang}, model={model}")
     validate_model(model)
     
     if not file_path.lower().endswith('.pdf'):
@@ -196,9 +231,10 @@ def doc_query(
     if not prompt.strip():
         raise ValueError("Prompt cannot be empty")
     
-    src_lang_code = normalize_language(src_lang)
     tgt_lang_code = normalize_language(tgt_lang)
     
+    src_lang_code = normalize_language(src_lang)
+
     url = f"{client.api_base}/v1/indic-custom-prompt-pdf"
     headers = client._headers()
     with open(file_path, "rb") as f:
@@ -206,8 +242,8 @@ def doc_query(
         data = {
             "page_number": str(page_number),
             "prompt": prompt,
-            "src_lang": src_lang_code,
             "tgt_lang": tgt_lang_code,
+            "src_lang": src_lang_code,
             "model": model
         }
 
@@ -233,12 +269,12 @@ def doc_query_kannada(
     file_path,
     page_number=1,
     prompt="list key points",
-    src_lang="eng_Latn",
     tgt_lang="kan_Knda",
+    src_lang="kan_Knda",
     model="gemma3"
 ):
     """Query a document with a custom prompt, outputting in Kannada."""
-    logger.debug(f"Calling doc_query_kannada: file_path={file_path}, page_number={page_number}, prompt={prompt}, src_lang={src_lang}, tgt_lang={tgt_lang}, model={model}")
+    logger.debug(f"Calling doc_query_kannada: file_path={file_path}, page_number={page_number}, prompt={prompt}, tgt_lang={tgt_lang}, model={model}")
     validate_model(model)
     
     if not file_path.lower().endswith('.pdf'):
@@ -248,8 +284,10 @@ def doc_query_kannada(
     if not prompt.strip():
         raise ValueError("Prompt cannot be empty")
     
-    src_lang_code = normalize_language(src_lang)
     tgt_lang_code = normalize_language(tgt_lang) if tgt_lang else "kan_Knda"
+
+    src_lang_code = normalize_language(src_lang) 
+    
     
     url = f"{client.api_base}/v1/indic-custom-prompt-pdf"
     headers = client._headers()
@@ -259,8 +297,8 @@ def doc_query_kannada(
         data = {
             "page_number": str(page_number),
             "prompt": prompt,
-            "src_lang": src_lang_code,
             "tgt_lang": tgt_lang_code,
+            "src_lang": src_lang_code,
             "model": model
         }
         try:
@@ -285,7 +323,7 @@ class Documents:
     def run_ocr_number(file_path, page_number=2,model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_ocr_number(client, file_path, page_number, model)
+        return document_ocr_page(client, file_path, page_number, model)
     @staticmethod
     def run_ocr_all(file_path, model="gemma3"):
         from .client import DwaniClient
@@ -293,25 +331,32 @@ class Documents:
         return document_ocr_all(client, file_path, model)
     
     @staticmethod
-    def summarize(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+    def summarize_page(file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_summarize(client, file_path, page_number, src_lang, tgt_lang, model)
+        return document_summarize_page(client, file_path, page_number, tgt_lang, model)
+
+
+    @staticmethod
+    def summarize_all(file_path, tgt_lang="kan_Knda", model="gemma3"):
+        from .client import DwaniClient
+        client = DwaniClient()
+        return document_summarize_all(client, file_path, tgt_lang, model)
+
+    @staticmethod
+    def run_extract(file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
+        from .client import DwaniClient
+        client = DwaniClient()
+        return extract(client, file_path, page_number, tgt_lang, model)
     
     @staticmethod
-    def run_extract(file_path, page_number=1, src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+    def run_doc_query(file_path, page_number=1, prompt="list the key points", tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return extract(client, file_path, page_number, src_lang, tgt_lang, model)
+        return doc_query(client, file_path, page_number, prompt, tgt_lang, model)
     
     @staticmethod
-    def run_doc_query(file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+    def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return doc_query(client, file_path, page_number, prompt, src_lang, tgt_lang, model)
-    
-    @staticmethod
-    def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
-        from .client import DwaniClient
-        client = DwaniClient()
-        return doc_query_kannada(client, file_path, page_number, prompt, src_lang, tgt_lang, model)
+        return doc_query_kannada(client, file_path, page_number, prompt, tgt_lang, model)

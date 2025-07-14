@@ -41,11 +41,22 @@ dwani.api_base = os.getenv("DWANI_API_BASE_URL")
 
 #### Document - OCR
 ```python
-result = dwani.Documents.run_ocr_number(file_path="dwani-workshop.pdf", page_number=1, model="gemma3")
+result = dwani.Documents.run_ocr_page(file_path="dwani-workshop.pdf", page_number=1, model="gemma3")
 print(result)
 ```
 ```json
 {'page_content': "Here's the plain text extracted from the image:\n\ndwani's Goals\n\nTo integrate and enhance the following models and services for Kannada:\n\n*   **Automatic Speech Recognition (ASR):**"}
+```
+
+
+#### Document - Summary
+
+```python
+result = dwani.Documents.summarize_all(
+            file_path="dwani-workshop.pdf", model="gemma3" , tgt_lang="english"  
+    )
+
+print("Document Query Response: gemma3- ", result["summary"])
 ```
 
 
@@ -130,5 +141,17 @@ rm -rf dist/
 python -m build
 
 python -m twine upload dist/*
+
+-->
+
+<!--
+Without Batch  
+2025-07-14 13:39:50,330 - dwani_api - INFO - Request to /indic-summarize-pdf-all took 245.381 seconds
+INFO:dwani_api:Request to /indic-summarize-pdf-all took 245.381 seconds
+
+With Batch
+
+vllm serve google/gemma-3-4b-it --served-model-name gemma3 --host 0.0.0.0 --port 9000 --gpu-memory-utilization 0.8 --tensor-parallel-size 1 --max-model-len 65536     --dtype bfloat16 
+
 
 -->

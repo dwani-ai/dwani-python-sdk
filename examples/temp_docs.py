@@ -46,6 +46,8 @@ print("Document Query Response: gemma3- ", result)
 
 '''
 
+'''
+
 result = dwani.Documents.summarize_page(
             file_path="dwani-ai-pitch-deck.pdf", model="gemma3" , page_number= 1
         )
@@ -68,9 +70,46 @@ result = dwani.Documents.summarize_page(
         )
 print("Document Query Response: gemma3- ", result)
 
-
-
+'''
 result = dwani.Documents.summarize_all(
             file_path="dwani-ai-pitch-deck.pdf", model="gemma3" , tgt_lang="english"
         )
-print("Document Query Response: gemma3- ", result)
+#print("Document Query Response: gemma3- ", result)
+
+#print("Document Query Response: gemma3- ", result["translated_summary"])
+
+
+print("Document Query Response: gemma3- ", result["summary"])
+
+result = dwani.Documents.summarize_all(
+            file_path="sample_resume.pdf", model="gemma3" , tgt_lang="english"
+  
+    )
+
+print("Document Query Response: gemma3- ", result["translated_summary"])
+
+#print("Document Query Response: gemma3- ", result)
+
+#print("Document Query Response: gemma3- ", result["summary"])
+
+#print("Document Query Response: gemma3- ", result["translated_summary"])
+
+
+print("Document Query Response: gemma3- ", result["summary"])
+
+result = dwani.Documents.summarize_all(
+            file_path="dwani-workshop.pdf", model="gemma3" , tgt_lang="english"  
+    )
+
+
+print("Document Query Response: gemma3- ", result["summary"])
+
+
+
+result = dwani.Documents.summarize_all(
+            file_path="olmocr-paper.pdf", model="gemma3" , tgt_lang="english"  
+    )
+
+
+print("Document Query Response: gemma3- ", result["summary"])
+

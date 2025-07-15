@@ -211,13 +211,13 @@ def extract(client, file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3
 
     return resp.json()
 
-def doc_query(
+def query_page(
     client,
     file_path,
     page_number=1,
     prompt="list the key points",
     tgt_lang="kan_Knda",
-    src_lang="eng_Latn",
+    query_lang="eng_Latn",
     model="gemma3"
 ):
     """Query a document with a custom prompt and language options."""
@@ -233,7 +233,7 @@ def doc_query(
     
     tgt_lang_code = normalize_language(tgt_lang)
     
-    src_lang_code = normalize_language(src_lang)
+    query_lang_code = normalize_language(query_lang)
 
     url = f"{client.api_base}/v1/indic-custom-prompt-pdf"
     headers = client._headers()
@@ -243,7 +243,7 @@ def doc_query(
             "page_number": str(page_number),
             "prompt": prompt,
             "tgt_lang": tgt_lang_code,
-            "src_lang": src_lang_code,
+            "query_lang": query_lang_code,
             "model": model
         }
 
@@ -263,6 +263,56 @@ def doc_query(
     logger.debug(f"Doc query response: {resp.status_code}")
 
     return resp.json()
+
+def query_all(
+    client,
+    file_path,
+    prompt="list the key points",
+    tgt_lang="kan_Knda",
+    query_lang="eng_Latn",
+    model="gemma3"
+):
+    """Query a document with a custom prompt and language options."""
+    logger.debug(f"Calling doc_query: file_path={file_path}, prompt={prompt}, tgt_lang={tgt_lang}, model={model}")
+    validate_model(model)
+    
+    if not file_path.lower().endswith('.pdf'):
+        raise ValueError("File must be a PDF")
+    if not prompt.strip():
+        raise ValueError("Prompt cannot be empty")
+    
+    tgt_lang_code = normalize_language(tgt_lang)
+    
+    query_lang_code = normalize_language(query_lang)
+
+    url = f"{client.api_base}/v1/indic-custom-prompt-pdf-all"
+    headers = client._headers()
+    with open(file_path, "rb") as f:
+        files = {"file": (file_path, f, "application/pdf")}
+        data = {
+            "prompt": prompt,
+            "tgt_lang": tgt_lang_code,
+            "query_lang": query_lang_code,
+            "model": model
+        }
+
+        try:
+            resp = requests.post(
+                url,
+                headers=headers,
+                files=files,
+                data=data,
+                timeout=90
+            )
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            logger.error(f"Doc query request failed: {str(e)}")
+            raise DwaniAPIError(resp) if 'resp' in locals() else DwaniAPIError.from_exception(e)
+    
+    logger.debug(f"Doc query response: {resp.status_code}")
+
+    return resp.json()
+
 
 def doc_query_kannada(
     client,
@@ -350,11 +400,18 @@ class Documents:
         return extract(client, file_path, page_number, tgt_lang, model)
     
     @staticmethod
-    def run_doc_query(file_path, page_number=1, prompt="list the key points", tgt_lang="kan_Knda", model="gemma3"):
+    def query_page(file_path, page_number=1, prompt="list the key points", query_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return doc_query(client, file_path, page_number, prompt, tgt_lang, model)
+        return query_page(client, file_path, page_number, prompt, query_lang, tgt_lang, model)
     
+    @staticmethod
+    def query_all(file_path, prompt="list the key points", query_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+        from .client import DwaniClient
+        client = DwaniClient()
+        return query_all(client, file_path, prompt, query_lang, tgt_lang, model)
+    
+
     @staticmethod
     def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient

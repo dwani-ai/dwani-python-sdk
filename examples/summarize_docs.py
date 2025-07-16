@@ -19,7 +19,7 @@ result = dwani.Documents.run_ocr_all(
 print("------------")
 
 result = dwani.Documents.summarize_page(
-            file_path="dwani-ai-pitch-deck.pdf", model="gemma3" , page_number= 1
+            file_path="dwani-ai-pitch-deck.pdf", model="gemma3" , page_number= 1, tgt_lang="kannada"
         )
 print("Document Query Response: gemma3- ", result)
 print("------------")
@@ -30,4 +30,10 @@ result = dwani.Documents.summarize_all(
 
 print("Document Query Response: gemma3- ", result["translated_summary"])
 
+
+result = dwani.Documents.summarize_all(
+            file_path="dwani-ai-pitch-deck.pdf", model="gemma3" , tgt_lang="kannada"
+        )
+
+print("Document Query Response: gemma3- ", result["translated_summary"])
 

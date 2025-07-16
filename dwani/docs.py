@@ -231,13 +231,10 @@ def query_page(
     if not prompt.strip():
         raise ValueError("Prompt cannot be empty")
     
-    #tgt_lang_code = normalize_language(tgt_lang)
+    tgt_lang_code = normalize_language(tgt_lang)
     
-    #query_lang_code = normalize_language(query_lang)
+    query_lang_code = normalize_language(query_lang)
 
-
-    print(tgt_lang)
-    #print(tgt_lang_code)
 
     url = f"{client.api_base}/v1/indic-custom-prompt-pdf"
     headers = client._headers()
@@ -246,19 +243,11 @@ def query_page(
         data = {
             "page_number": str(page_number),
             "prompt": prompt,
-            "tgt_lang": tgt_lang,
-            "query_lang": query_lang,
+            "tgt_lang": tgt_lang_code,
+            "query_lang": query_lang_code,
             "model": model
         }
 
-#        data = {"model": model,
-#            "page_number": page_number}
-    
-        #params = {"model": data["model"], "page_number": data["page_number"], "tgt_lang":tgt_lang_code, "query_lang":query_lang_code, "prompt" :prompt}
-
-        print(tgt_lang)
-        #print(tgt_lang_code)
-        print(data)
         try:
             resp = requests.post(
                 url,
@@ -383,51 +372,50 @@ def doc_query_kannada(
 
 class Documents:
     @staticmethod
-    def run_ocr_number(file_path, page_number=2,model="gemma3"):
+    def run_ocr_number(file_path, page_number=1,model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_ocr_page(client, file_path, page_number, model)
+        return document_ocr_page(client, file_path=file_path, page_number=page_number, model=model)
     @staticmethod
     def run_ocr_all(file_path, model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_ocr_all(client, file_path, model)
+        return document_ocr_all(client, file_path=file_path, model=model)
     
     @staticmethod
     def summarize_page(file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_summarize_page(client, file_path, page_number, tgt_lang, model)
+        return document_summarize_page(client, file_path=file_path, page_number=page_number, tgt_lang=tgt_lang, model=model)
 
 
     @staticmethod
     def summarize_all(file_path, tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_summarize_all(client, file_path, tgt_lang, model)
+        return document_summarize_all(client, file_path=file_path, tgt_lang=tgt_lang, model=model)
 
     @staticmethod
     def run_extract(file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return extract(client, file_path, page_number, tgt_lang, model)
+        return extract(client, file_path=file_path, page_number=page_number, tgt_lang=tgt_lang, model=model)
     
     @staticmethod
     def query_page(file_path, page_number=1, prompt="list the key points", query_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        print(tgt_lang)
-        return query_page(client, file_path, page_number, prompt, query_lang, tgt_lang, model)
+        return query_page(client, file_path=file_path, page_number=page_number, prompt=prompt, query_lang=query_lang, tgt_lang=tgt_lang, model=model)
     
     @staticmethod
     def query_all(file_path, prompt="list the key points", query_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return query_all(client, file_path, prompt, query_lang, tgt_lang, model)
+        return query_all(client, file_path=file_path, prompt=prompt, query_lang=query_lang, tgt_lang=tgt_lang, model=model)
     
 
     @staticmethod
     def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return doc_query_kannada(client, file_path, page_number, prompt, tgt_lang, model)
+        return doc_query_kannada(client, file_path=file_path, page_number=page_number, prompt=prompt, tgt_lang=tgt_lang, model=model)

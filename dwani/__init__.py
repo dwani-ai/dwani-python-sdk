@@ -75,10 +75,9 @@ class document:
 
     
     @staticmethod
-    def query_page(file_path, page_number=1,prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
-        return _get_client().query_page(file_path, page_number, prompt, src_lang, tgt_lang, model)
+    def query_page(file_path, page_number=1,prompt="list the key points", query_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+        return _get_client().query_page(file_path, page_number, prompt, query_lang, tgt_lang, model)
     
-
 
     @staticmethod
     def query_all(file_path, prompt="list the key points", query_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):

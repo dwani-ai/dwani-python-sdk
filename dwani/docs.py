@@ -231,9 +231,13 @@ def query_page(
     if not prompt.strip():
         raise ValueError("Prompt cannot be empty")
     
-    tgt_lang_code = normalize_language(tgt_lang)
+    #tgt_lang_code = normalize_language(tgt_lang)
     
-    query_lang_code = normalize_language(query_lang)
+    #query_lang_code = normalize_language(query_lang)
+
+
+    print(tgt_lang)
+    #print(tgt_lang_code)
 
     url = f"{client.api_base}/v1/indic-custom-prompt-pdf"
     headers = client._headers()
@@ -242,17 +246,26 @@ def query_page(
         data = {
             "page_number": str(page_number),
             "prompt": prompt,
-            "tgt_lang": tgt_lang_code,
-            "query_lang": query_lang_code,
+            "tgt_lang": tgt_lang,
+            "query_lang": query_lang,
             "model": model
         }
 
+#        data = {"model": model,
+#            "page_number": page_number}
+    
+        #params = {"model": data["model"], "page_number": data["page_number"], "tgt_lang":tgt_lang_code, "query_lang":query_lang_code, "prompt" :prompt}
+
+        print(tgt_lang)
+        #print(tgt_lang_code)
+        print(data)
         try:
             resp = requests.post(
                 url,
                 headers=headers,
                 files=files,
                 data=data,
+                #params=params,
                 timeout=90
             )
             resp.raise_for_status()
@@ -403,6 +416,7 @@ class Documents:
     def query_page(file_path, page_number=1, prompt="list the key points", query_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
+        print(tgt_lang)
         return query_page(client, file_path, page_number, prompt, query_lang, tgt_lang, model)
     
     @staticmethod

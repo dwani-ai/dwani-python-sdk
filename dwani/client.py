@@ -59,9 +59,14 @@ class DwaniClient:
         from .docs import extract
         return extract(self, file_path=file_path, page_number=page_number, tgt_lang=tgt_lang, model=model)
 
-    def doc_query(self, file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
-        from .docs import doc_query
-        return doc_query(self, file_path, page_number=page_number, prompt=prompt, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
+    def query_page(self, file_path, page_number=1, prompt="list the key points", query_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+        from .docs import query_page
+        return query_page(self, file_path, page_number=page_number, prompt=prompt, query_lang=query_lang, tgt_lang=tgt_lang, model=model)
+
+    def query_all(self, file_path, prompt="list the key points", query_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+        from .docs import query_all
+        return query_all(self, file_path, prompt=prompt, query_lang=query_lang, tgt_lang=tgt_lang, model=model)
+
 
     def doc_query_kannada(self, file_path, page_number=1, prompt="list key points", src_lang="eng_Latn", language="kan_Knda", model="gemma3"):
         from .docs import doc_query_kannada

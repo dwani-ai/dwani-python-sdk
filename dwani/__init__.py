@@ -72,10 +72,16 @@ class document:
     @staticmethod
     def run_extract(file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
         return _get_client().extract(file_path, page_number, tgt_lang, model)
+
     
     @staticmethod
-    def run_doc_query(file_path, page_number=1, prompt="list the key points", src_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
-        return _get_client().doc_query(file_path, page_number, prompt, src_lang, tgt_lang, model)
+    def query_page(file_path, page_number=1,prompt="list the key points", query_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+        return _get_client().query_page(file_path, page_number, prompt, query_lang, tgt_lang, model)
+    
+
+    @staticmethod
+    def query_all(file_path, prompt="list the key points", query_lang="eng_Latn", tgt_lang="kan_Knda", model="gemma3"):
+        return _get_client().query_all(file_path, prompt, query_lang, tgt_lang, model)
     
     @staticmethod
     def run_doc_query_kannada(file_path, page_number=1, prompt="list key points", src_lang="kan_Latn", tgt_lang="kan_Knda", model="gemma3"):

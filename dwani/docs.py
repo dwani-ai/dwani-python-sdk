@@ -52,7 +52,7 @@ def document_ocr_all(client, file_path, model="gemma3"):
         files = {"file": (file_path, f, mime_type)}
         try:
             resp = requests.post(
-                f"{client.api_base}/v1/extract-text-all",
+                f"{client.api_base}/v1/extract-text-all-chunk",
                 headers=client._headers(),
                 files=files,
                 data=data,

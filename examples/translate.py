@@ -12,10 +12,26 @@ def run_translate():
 
         print("Translate Result:", result)
 
+        file_name = "shrimad_bhagavatam_english.txt"
+        # Open the file in read mode
+        with open(file_name, 'r') as file:
+            file_content = file.read()
+
+        # Now file_content holds the entire content of the file as a string
+        print(file_content)
+
+        result = dwani.Translate.run_translate(sentences=file_content, src_lang="english", tgt_lang="kannada")
+
+        print(result)
+
+
+
     except Exception as e:
         print(f"Error in ASR module: {e}")
 
 
+run_translate()
+'''
 def display_menu():
     print("\ndwani.ai Translate API Module Selector")
     print("1. Translate")
@@ -38,3 +54,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+'''

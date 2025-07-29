@@ -10,7 +10,14 @@ logger = logging.getLogger(__name__)
 language_options = [
     ("English", "eng_Latn"),
     ("Kannada", "kan_Knda"),
-    ("Hindi", "hin_Deva"),
+    ("Hindi", "hin_Deva"), 
+    ("Assamese", "asm_Beng"),
+    ("Bengali", "ben_Beng"),
+    ("Gujarati", "guj_Gujr"),
+    ("Malayalam", "mal_Mlym"),
+    ("Marathi", "mar_Deva"),
+    ("Odia", "ory_Orya"),
+    ("Punjabi", "pan_Guru"),
     ("Tamil", "tam_Taml"),
     ("Telugu", "tel_Telu"),
     ("German", "deu_Latn") 
@@ -53,6 +60,8 @@ def document_ocr_all(client, file_path, model="gemma3"):
         try:
             resp = requests.post(
                 f"{client.api_base}/v1/extract-text-all",
+#TODO - test -chunk
+#                f"{client.api_base}/v1/extract-text-all-chunk",
                 headers=client._headers(),
                 files=files,
                 data=data,

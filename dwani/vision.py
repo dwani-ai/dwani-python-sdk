@@ -38,7 +38,7 @@ def normalize_language(lang):
 
 def ocr_image(client, file_path, model="gemma3"):
     url = (
-        f"{client.api_base}/v1/ocr_image"
+        f"{client.api_base}/v1/ocr"
         f"?model={model}"
     )
     headers = {

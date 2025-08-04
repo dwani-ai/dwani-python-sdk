@@ -19,6 +19,14 @@ result = dwani.Documents.run_ocr_all(
         )
 print("------------")
 
+print(result)
+result = dwani.Documents.run_ocr_all(
+            file_path="sample_resume.pdf", model="gemma3"
+        )
+print("------------")
+
+print(result)
+
 '''
 result = dwani.Documents.run_ocr_all(
             file_path="olmocr-paper.pdf", model="gemma3"

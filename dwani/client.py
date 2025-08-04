@@ -35,6 +35,10 @@ class DwaniClient:
         from .vision import vision_caption
         return vision_caption(self, file_path=file_path, query=query, src_lang=src_lang, tgt_lang=tgt_lang, model=model)
 
+    def ocr_image(self, file_path, model="gemma3"):
+        from .vision import ocr_image
+        return ocr_image(self, file_path=file_path, model=model)
+
     def caption_direct(self, file_path, query="describe the image", model="gemma3", system_prompt=""):
         from .vision import vision_direct
         return vision_direct(self, file_path=file_path, query=query, model=model, system_prompt=system_prompt)

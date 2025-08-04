@@ -40,7 +40,9 @@ class vision:
     @staticmethod
     def caption_direct(file_path, query="describe the image", model="gemma3", system_prompt=""):
         return _get_client().caption_direct(file_path, query, model, system_prompt)
-
+    @staticmethod
+    def ocr_image(file_path, model="gemma3"):
+        return _get_client().ocr_image(file_path, model)
 class asr:
     @staticmethod
     def transcribe(file_path, language="kannada"):

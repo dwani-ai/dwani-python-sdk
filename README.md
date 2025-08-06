@@ -11,6 +11,12 @@
 pip install --upgrade dwani
 ```
 
+### Model Supported
+- Text
+  - gpt-oss , gemma3
+- Vision
+  - gemma3
+
 ### Languages supported
 - Indian
   - Assamese, Bengali, Gujarati, Hindi, Kannada, Malayalam, Marathi Odia, Punjabi, Tamil, Telugu

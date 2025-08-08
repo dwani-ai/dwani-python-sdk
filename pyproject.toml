@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "dwani"
 
 version = "0.1.23"
-description = "Document Analtics + Multimodal API for Indian + European languages (Chat, Vision, TTS, ASR, Translate, Docs)"
+description = "Document Analytics + Multimodal API for Indian + European languages (Chat, Vision, TTS, ASR, Translate, Docs)"
 authors = [
     { name="sachin", email="python@dwani.ai" }
 ]
@@ -20,6 +20,6 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/dwani-ai/dwani-python"
-Source = "https://github.com/dwani-ai/dwani-python"
-Issues = "https://github.com/dwani-ai/dwani-python/issues"
+Homepage = "https://github.com/dwani-ai/dwani-python-sdk"
+Source = "https://github.com/dwani-ai/dwani-python-sdk"
+Issues = "https://github.com/dwani-ai/dwani-python-sdk/issues"

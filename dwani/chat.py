@@ -37,6 +37,10 @@ def normalize_language(lang):
     raise ValueError(f"Unsupported language: {lang}. Supported languages: {supported_langs}")
 
 def chat_direct(client, prompt, model="gemma3", system_prompt=""):
+    valid_models = ["gemma3", "qwen3", "gpt-oss", "sarvam-m"]
+    if model not in valid_models:
+        raise ValueError(f"Unsupported model: {model}. Supported models: {valid_models}")
+
     url = f"{client.api_base}/v1/chat_direct"
     payload = {
         "prompt": prompt,
@@ -55,7 +59,7 @@ def chat_direct(client, prompt, model="gemma3", system_prompt=""):
 
 def chat_create(client, prompt, src_lang, tgt_lang, model="gemma3"):
     # Validate model
-    valid_models = ["gemma3", "qwen3", "deepseek-r1", "sarvam-m"]
+    valid_models = ["gemma3", "qwen3", "gpt-oss", "sarvam-m"]
     if model not in valid_models:
         raise ValueError(f"Unsupported model: {model}. Supported models: {valid_models}")
     

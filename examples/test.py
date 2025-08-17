@@ -14,3 +14,9 @@ result = dwani.Vision.caption_direct(
             model="gemma3"
         )
 print("Vision Response: ", result)
+
+
+print("------------------")
+
+resp = dwani.Chat.direct(prompt="Hello!")
+print("Chat Response: Direct ", resp)

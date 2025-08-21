@@ -56,24 +56,24 @@ class translate:
 class document:
     @staticmethod
     def run_ocr_page(file_path, page_number=1, model="gemma3"):
-        return _get_client().document_ocr_page(file_path, page_number, model)
+        return _get_client().run_ocr_page(file_path, page_number, model)
     
     @staticmethod
     def run_ocr_all(file_path, model="gemma3"):
-        return _get_client().document_ocr_all(file_path, model)
+        return _get_client().run_ocr_all(file_path, model)
     
     @staticmethod
     def run_summarize_page(file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
-        return _get_client().document_summarize_page(file_path, page_number, tgt_lang, model)
+        return _get_client().run_summarize_page(file_path, page_number, tgt_lang, model)
     
 
     @staticmethod
     def run_summarize_all(file_path,  tgt_lang="kan_Knda", model="gemma3"):
-        return _get_client().document_summarize_all(file_path, tgt_lang, model)
+        return _get_client().run_summarize_all(file_path, tgt_lang, model)
     
     @staticmethod
     def run_extract(file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
-        return _get_client().extract(file_path, page_number, tgt_lang, model)
+        return _get_client().run_extract(file_path, page_number, tgt_lang, model)
 
     
     @staticmethod

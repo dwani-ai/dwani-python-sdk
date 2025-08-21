@@ -47,7 +47,7 @@ def validate_model(model):
         raise ValueError(f"Unsupported model: {model}. Supported models: {VALID_MODELS}")
     return model
 
-def document_ocr_all(client, file_path, model="gemma3"):
+def run_ocr_all(client, file_path, model="gemma3"):
     """OCR a document (image/PDF) and return extracted text."""
     logger.debug(f"Calling document_ocr: file_path={file_path}, model={model}")
     validate_model(model)
@@ -76,7 +76,7 @@ def document_ocr_all(client, file_path, model="gemma3"):
     return resp.json()
 
 
-def document_ocr_page(client, file_path, page_number, model="gemma3"):
+def run_ocr_page(client, file_path, page_number, model="gemma3"):
     """OCR a document (image/PDF) and return extracted text."""
     logger.debug(f"Calling document_ocr: file_path={file_path}, model={model}")
     validate_model(model)
@@ -381,15 +381,15 @@ def doc_query_kannada(
 
 class Documents:
     @staticmethod
-    def run_ocr_number(file_path, page_number=1,model="gemma3"):
+    def run_ocr_page(file_path, page_number=1,model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_ocr_page(client, file_path=file_path, page_number=page_number, model=model)
+        return run_ocr_page(client, file_path=file_path, page_number=page_number, model=model)
     @staticmethod
     def run_ocr_all(file_path, model="gemma3"):
         from .client import DwaniClient
         client = DwaniClient()
-        return document_ocr_all(client, file_path=file_path, model=model)
+        return run_ocr_all(client, file_path=file_path, model=model)
     
     @staticmethod
     def summarize_page(file_path, page_number=1, tgt_lang="kan_Knda", model="gemma3"):
